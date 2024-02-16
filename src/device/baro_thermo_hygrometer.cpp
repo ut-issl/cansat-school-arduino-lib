@@ -2,13 +2,20 @@
 
 #include "computer.hpp"
 
-namespace Device
-{
-
 #define BME280_ADDR_ 0x76
 #define CONFIG_ 0xF5
 #define CTRL_MEAS_ 0xF4
 #define CTRL_HUM_ 0xF2
+
+namespace Device
+{
+
+    void BaroThermoHygrometer_t::print() const
+    {
+        Computer::print(F("Pressure:"), pressure, F("hPa"));
+        Computer::print(F("Temperature:"), temperature, F("°C"));
+        Computer::print(F("Humidity:"), humidity, F("%"));
+    }
 
     BaroThermoHygrometer::BaroThermoHygrometer()
     {

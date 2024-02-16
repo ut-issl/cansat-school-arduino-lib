@@ -12,6 +12,8 @@ namespace Device
         float pressure;
         float temperature;
         float humidity;
+
+        void print() const;
     };
 
     class BaroThermoHygrometer : public SensorBase<BaroThermoHygrometer_t>
