@@ -1,9 +1,8 @@
 #include <CanSatHighSchool.h>
 
 #define PIN_GPS_TX 8
-#define PIN_GPS_RX 9
 
-GPSReceiver gps{PIN_GPS_TX, PIN_GPS_RX};
+GPSReceiver gps{PIN_GPS_TX};
 
 void setup()
 {
