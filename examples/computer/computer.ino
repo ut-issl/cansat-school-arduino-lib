@@ -1,4 +1,4 @@
-#include <CanSatSchool.h>
+#include <CanSatHighSchool.h>
 
 void setup()
 {
