@@ -1,4 +1,4 @@
-#include "UltrasonicDistanceSensor.h"
+#include <CanSatHighSchool.h>
 
 #define PIN_TRIGGER 9
 #define PIN_ECHO 17

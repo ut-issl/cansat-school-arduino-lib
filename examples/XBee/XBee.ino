@@ -1,20 +1,19 @@
-#include "./XBee.h"
-
+#include <CanSatHighSchool.h>
 
 void setup()
 {
-	// デバック用シリアル通信は9600bps
-	Serial.begin(9600);
+    // デバック用シリアル通信は9600bps
+    Serial.begin(9600);
 
-	XBEE_Init();		// XBEEの初期化
+    XBEE_Init();  // XBEEの初期化
 
-	Serial.println(F("Init done"));
-	delay(300);
+    Serial.println(F("Init done"));
+    delay(300);
 }
 
 void loop()
 {
-	XBEE_Test();		// XBEEの送受信テスト
+    XBEE_Test();  // XBEEの送受信テスト
 
-	delay(25);			// 25 ms 待つ
+    delay(25);  // 25 ms 待つ
 }
