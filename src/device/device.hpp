@@ -6,7 +6,7 @@
 #include "computer.hpp"
 #include "DCMotor.h"
 #include "GPS.h"
-#include "IMU.h"
+#include "imu.hpp"
 #include "Light.h"
 #include "memorysaver.h"
 #include "Microphone.h"
