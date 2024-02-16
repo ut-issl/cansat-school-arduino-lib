@@ -50,7 +50,7 @@ namespace Device
         Wire.requestFrom(BME280_ADDR_, 26);
         for (uint8_t i = 0; i < 26; i++) {
             while (Wire.available() == 0) {
-                Serial.println(F("Waiting for receiving data from BME280..."));
+                print(F("Waiting for receiving data from BME280..."));
             }
             buffer_[i] = Wire.read();
         }
