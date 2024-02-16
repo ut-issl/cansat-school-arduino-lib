@@ -1,0 +1,18 @@
+{
+    "name": "CanSatSchool",
+    "keywords": "CanSat",
+    "description": "Library for CanSat High School",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ut-issl/cansat-high-school_arduino-lib.git"
+    },
+    "authors": {
+        "name": "ut-issl",
+        "url": "https://github.com/ut-issl",
+        "maintainer": true
+    },
+    "version": "1.0",
+    "license": "",
+    "frameworks": "arduino",
+    "platforms": "*"
+}
