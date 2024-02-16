@@ -14,7 +14,6 @@
 #include "Light4.h"
 #include "memorysaver.h"
 #include "Microphone.h"
-#include "ov2640_regs.h"
 #include "PIN_ASSIGN.h"
 #include "SD.h"
 #include "Servo.h"

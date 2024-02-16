@@ -216,7 +216,7 @@ ArduCAM::ArduCAM(byte model, int CS)
 void ArduCAM::InitCAM()
 {
 
-    switch (sensor_model) {
+   switch (sensor_model) {
         case OV7660: {
 #if defined OV7660_CAM
             wrSensorReg8_8(0x12, 0x80);
@@ -287,20 +287,20 @@ void ArduCAM::InitCAM()
             } else {
                 wrSensorRegs16_8(OV5642_QVGA_Preview);
   #if defined(RASPBERRY_PI)
-                arducam_delay_ms(100);
+               arducam_delay_ms(100);
   #else
                 delay(100);
   #endif
                 if (m_fmt == JPEG) {
   #if defined(RASPBERRY_PI)
-                    arducam_delay_ms(100);
+                   arducam_delay_ms(100);
   #else
                     delay(100);
   #endif
                     wrSensorRegs16_8(OV5642_JPEG_Capture_QSXGA);
                     wrSensorRegs16_8(ov5642_320x240);
   #if defined(RASPBERRY_PI)
-                    arducam_delay_ms(100);
+                   arducam_delay_ms(100);
   #else
                     delay(100);
   #endif
@@ -314,9 +314,9 @@ void ArduCAM::InitCAM()
   #endif
                     wrSensorReg16_8(0x5888, 0x00);
                     wrSensorReg16_8(0x5000, 0xFF);
-                } else {
+               } else {
 
-                    byte reg_val;
+            byte reg_val;
                     wrSensorReg16_8(0x4740, 0x21);
                     wrSensorReg16_8(0x501e, 0x2a);
                     wrSensorReg16_8(0x5002, 0xf8);
@@ -403,7 +403,7 @@ void ArduCAM::InitCAM()
             break;
         }
 
-        case MT9V111: {
+    case MT9V111: {
 #if defined MT9V111_CAM
             // Reset sensor core
             wrSensorReg8_16(0x01, 0x04);
@@ -1019,7 +1019,7 @@ void ArduCAM::OV2640_set_Light_Mode(uint8_t Light_Mode)
             wrSensorReg8_8(0xcc, 0x65);
             wrSensorReg8_8(0xcd, 0x41);
             wrSensorReg8_8(0xce, 0x4f);
-            break;
+          break;
         case Office:
             wrSensorReg8_8(0xff, 0x00);
             wrSensorReg8_8(0xc7, 0x40);  // AWB off
@@ -1038,7 +1038,7 @@ void ArduCAM::OV2640_set_Light_Mode(uint8_t Light_Mode)
             wrSensorReg8_8(0xff, 0x00);
             wrSensorReg8_8(0xc7, 0x00);  // AWB on
             break;
-    }
+   }
 #endif
 }
 
@@ -1147,7 +1147,7 @@ void ArduCAM::OV5642_set_Light_Mode(uint8_t Light_Mode)
             break;
         default:
             break;
-    }
+   }
 #endif
 }
 
@@ -1228,7 +1228,7 @@ void ArduCAM::OV5640_set_Light_Mode(uint8_t Light_Mode)
             break;
         default:
             break;
-    }
+   }
 #endif
 }
 
@@ -1760,7 +1760,7 @@ void ArduCAM::OV2640_set_Contrast(uint8_t Contrast)
             wrSensorReg8_8(0x7d, 0x24);
             wrSensorReg8_8(0x7d, 0x16);
             wrSensorReg8_8(0x7d, 0x06);
-            break;
+           break;
         case Contrast0:
             wrSensorReg8_8(0xff, 0x00);
             wrSensorReg8_8(0x7c, 0x00);
@@ -1770,7 +1770,7 @@ void ArduCAM::OV2640_set_Contrast(uint8_t Contrast)
             wrSensorReg8_8(0x7d, 0x20);
             wrSensorReg8_8(0x7d, 0x20);
             wrSensorReg8_8(0x7d, 0x06);
-            break;
+           break;
         case Contrast_1:
             wrSensorReg8_8(0xff, 0x00);
             wrSensorReg8_8(0x7c, 0x00);
@@ -2274,7 +2274,7 @@ void ArduCAM::OV5640_set_Special_effects(uint8_t Special_effect)
             wrSensorReg16_8(0x5003, 0x08);
             wrSensorReg16_8(0x3212, 0x13);  // end group 3
             wrSensorReg16_8(0x3212, 0xa3);  // launch group
-            break;
+           break;
         case Blueish:
             wrSensorReg16_8(0x3212, 0x03);  // start group 3
             wrSensorReg16_8(0x5580, 0x1e);
@@ -2855,7 +2855,7 @@ int ArduCAM::wrSensorRegs8_8(const struct sensor_reg reglist[])
   #endif
     }
 #endif
-    return 1;
+  return 1;
 }
 
 // Write 16 bit values to 8 bit register address
@@ -2965,7 +2965,7 @@ byte ArduCAM::wrSensorReg8_8(int regID, int regDat)
 byte ArduCAM::rdSensorReg8_8(uint8_t regID, uint8_t* regDat)
 {
 #if defined(RASPBERRY_PI)
-    arducam_i2c_read(regID, regDat);
+   arducam_i2c_read(regID, regDat);
 #else
     Wire.beginTransmission(sensor_addr >> 1);
     Wire.write(regID & 0x00FF);
@@ -2983,7 +2983,7 @@ byte ArduCAM::rdSensorReg8_8(uint8_t regID, uint8_t* regDat)
 byte ArduCAM::wrSensorReg8_16(int regID, int regDat)
 {
 #if defined(RASPBERRY_PI)
-    arducam_i2c_write16(regID, regDat);
+   arducam_i2c_write16(regID, regDat);
 #else
     Wire.beginTransmission(sensor_addr >> 1);
     Wire.write(regID & 0x00FF);
@@ -3001,7 +3001,7 @@ byte ArduCAM::wrSensorReg8_16(int regID, int regDat)
 byte ArduCAM::rdSensorReg8_16(uint8_t regID, uint16_t* regDat)
 {
 #if defined(RASPBERRY_PI)
-    arducam_i2c_read16(regID, regDat);
+   arducam_i2c_read16(regID, regDat);
 #else
     uint8_t temp;
     Wire.beginTransmission(sensor_addr >> 1);
@@ -3022,7 +3022,7 @@ byte ArduCAM::rdSensorReg8_16(uint8_t regID, uint16_t* regDat)
 byte ArduCAM::wrSensorReg16_8(int regID, int regDat)
 {
 #if defined(RASPBERRY_PI)
-    arducam_i2c_word_write(regID, regDat);
+   arducam_i2c_word_write(regID, regDat);
     arducam_delay_ms(1);
 #else
     Wire.beginTransmission(sensor_addr >> 1);
@@ -3040,7 +3040,7 @@ byte ArduCAM::wrSensorReg16_8(int regID, int regDat)
 byte ArduCAM::rdSensorReg16_8(uint16_t regID, uint8_t* regDat)
 {
 #if defined(RASPBERRY_PI)
-    arducam_i2c_word_read(regID, regDat);
+   arducam_i2c_word_read(regID, regDat);
 #else
     Wire.beginTransmission(sensor_addr >> 1);
     Wire.write(regID >> 8);
@@ -3052,7 +3052,7 @@ byte ArduCAM::rdSensorReg16_8(uint16_t regID, uint8_t* regDat)
     }
     delay(1);
 #endif
-    return 1;
+  return 1;
 }
 
 // I2C Write 16bit address, 16bit data
@@ -3090,7 +3090,7 @@ byte ArduCAM::rdSensorReg16_16(uint16_t regID, uint16_t* regDat)
     }
     delay(1);
 #endif
-    return (1);
+   return (1);
 }
 #if defined(ESP8266)
 inline void ArduCAM::setDataBits(uint16_t bits)

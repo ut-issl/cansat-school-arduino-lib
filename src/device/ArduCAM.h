@@ -103,8 +103,9 @@
 #include "memorysaver.h"
 #if defined(RASPBERRY_PI)
 #else
-  #include "Arduino.h"
   #include <pins_arduino.h>
+
+  #include "Arduino.h"
   #include "memorysaver.h"
 #endif
 

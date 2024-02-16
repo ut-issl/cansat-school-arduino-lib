@@ -1,6 +1,8 @@
 #ifndef PIN_ASSIGN_H
 #define PIN_ASSIGN_H
 
+#include <Arduino.h>
+
 #define PIN_SRV 4
 
 #define PIN_LIT A1
