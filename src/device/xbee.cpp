@@ -35,7 +35,7 @@ namespace Device
         for (uint8_t i = 0; i < max_length_; ++i)
         {
             if (i >= received_data_length_) break;
-            this->readBytes(received_data[i], i);
+            this->readBytes(received_data_[i], i);
         }
 
     }
@@ -44,7 +44,7 @@ namespace Device
     {
         for (uint8_t i = 0; i < max_length_; ++i)
         {
-            print(received_data[i]);
+            print(received_data_[i]);
         }
         print("\n");
     }
