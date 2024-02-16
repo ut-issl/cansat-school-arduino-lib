@@ -8,10 +8,12 @@ namespace Device
     template <class Ret>
     class SensorBase
     {
-      public:
+      protected:
 
         SensorBase();
         ~SensorBase() = default;
+
+      public:
 
         void init() const;
 

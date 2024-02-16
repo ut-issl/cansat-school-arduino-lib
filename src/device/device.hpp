@@ -13,5 +13,5 @@
 #include "PIN_ASSIGN.h"
 #include "SD.h"
 #include "Servo.h"
-#include "UltrasonicDistanceSensor.h"
+#include "ultrasonic_distance_sensor.hpp"
 #include "xbee.hpp"
