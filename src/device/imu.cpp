@@ -2,15 +2,27 @@
 
 #include "computer.hpp"
 
-namespace Device
-{
-
 // BMX055 加速度センサのI2Cアドレス
 #define IMU_ADDR_ACCL 0x19  // (JP1,JP2,JP3 = Openの時)
 // BMX055 ジャイロセンサのI2Cアドレス
 #define IMU_ADDR_GYRO 0x69  // (JP1,JP2,JP3 = Openの時)
 // BMX055 磁気センサのI2Cアドレス
 #define IMU_ADDR_MAG 0x13  // (JP1,JP2,JP3 = Openの時)
+
+namespace Device
+{
+
+    void coordinate::print() const
+    {
+        Computer::print("(", x, ",", y, ",", z, ")");
+    }
+
+    void IMU_t::print() const
+    {
+        Computer::print("Acc: (", acc.x, ",", acc.y, ",", acc.z, ")");
+        Computer::print("Gyro: (", gyro.x, ",", gyro.y, ",", gyro.z, ")");
+        Computer::print("Mag: (", mag.x, ",", mag.y, ",", mag.z, ")");
+    }
 
     IMU::IMU()
         : accel_offset_({0.0, 0.0, 0.0}), gyro_offset_({0.0, 0.0, 0.0}), mag_offset_({0.0, 0.0, 0.0})
