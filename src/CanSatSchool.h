@@ -2,4 +2,4 @@
 
 #include "device/device.hpp"
 
-using Device;
+using namespace Device;
