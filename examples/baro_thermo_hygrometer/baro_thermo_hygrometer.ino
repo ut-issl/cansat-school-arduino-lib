@@ -4,8 +4,6 @@ BaroThermoHygrometer bth;
 
 void setup()
 {
-    // Wire(Arduino-I2C)の初期化
-    Wire.begin();
     // デバック用シリアル通信は9600bps
     Computer::init(9600);
 
