@@ -16,7 +16,7 @@ namespace Device
         Computer::print(F("Xbee init done"));
     }
 
-    void XBee::write(char* write_data, uint8_t data_length) const
+    void XBee::writeData(char* write_data, uint8_t data_length) const
     {
         for (uint8_t i = 0; i < max_length_; ++i) {
             if (i >= data_length)
@@ -25,7 +25,7 @@ namespace Device
         }
     }
 
-    int XBee::read()
+    void XBee::readData()
     {
         received_data_length_ = this->available();
 

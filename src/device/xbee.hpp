@@ -14,8 +14,8 @@ namespace Device
         ~XBee() = default;
 
         void init() const;
-        void write(char* write_data, uint8_t data_length) const;
-        int read();
+        void writeData(char* write_data, uint8_t data_length) const;
+        void readData();
         void print() const;
 
       private:
