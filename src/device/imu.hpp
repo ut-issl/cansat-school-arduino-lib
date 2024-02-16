@@ -28,8 +28,8 @@ namespace Device
         IMU();
         ~IMU() = default;
 
-        void init() const;
-        IMU_t read() const override;
+        void init();
+        IMU_t read() override;
         coordinate readAccel() const;
         coordinate readGyro() const;
         coordinate readMag() const;

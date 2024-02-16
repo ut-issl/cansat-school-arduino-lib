@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ArduCAM.h"
-#include "BarometerThermohygrometer.h"
+#include "baro_thermo_hygrometer.hpp"
 #include "Camera2.h"
 #include "computer.hpp"
 #include "DCMotor.h"

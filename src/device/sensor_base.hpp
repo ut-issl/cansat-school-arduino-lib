@@ -15,10 +15,10 @@ namespace Device
 
       public:
 
-        void init() const;
+        void init();
 
-        virtual Ret read() const;
-        Ret operator()() const;
+        virtual Ret read();
+        Ret operator()();
     };
 
     template <class Ret>
@@ -27,12 +27,12 @@ namespace Device
     }
 
     template <class Ret>
-    void SensorBase<Ret>::init() const
+    void SensorBase<Ret>::init()
     {
     }
 
     template <class Ret>
-    Ret SensorBase<Ret>::operator()() const
+    Ret SensorBase<Ret>::operator()()
     {
         return this->read();
     }

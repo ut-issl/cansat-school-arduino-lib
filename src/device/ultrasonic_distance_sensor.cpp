@@ -15,7 +15,7 @@ namespace Device
     {
     }
 
-    void UltrasonicDistanceSensor::init() const
+    void UltrasonicDistanceSensor::init()
     {
         pinMode(trigger_pin_, OUTPUT);
         pinMode(echo_pin_, INPUT);
@@ -23,7 +23,7 @@ namespace Device
         print(F("Init Ultrasonic Distance Sensor"));
     }
 
-    float UltrasonicDistanceSensor::read() const
+    float UltrasonicDistanceSensor::read()
     {
         digitalWrite(trigger_pin_, LOW);
         delayMicroseconds(2);

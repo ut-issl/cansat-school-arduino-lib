@@ -17,7 +17,7 @@ namespace Device
     {
     }
 
-    void IMU::init() const
+    void IMU::init()
     {
         Wire.beginTransmission(IMU_ADDR_ACCL);
         Wire.write(0x0F);  // Select PMU_Range register
@@ -94,7 +94,7 @@ namespace Device
         print(F("Init IMU"));
     }
 
-    IMU_t IMU::read() const
+    IMU_t IMU::read()
     {
         return IMU_t{readAccel(), readGyro(), readMag()};
     }

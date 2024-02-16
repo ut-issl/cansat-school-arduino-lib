@@ -13,8 +13,8 @@ namespace Device
         UltrasonicDistanceSensor(const uint8_t& trigger_pin, const uint8_t& echo_pin, const float& temperature);
         ~UltrasonicDistanceSensor() = default;
 
-        void init() const;
-        float read() const override;
+        void init();
+        float read() override;
 
         void setMinRange(const float& min_range);
         void setMaxRange(const float& max_range);
