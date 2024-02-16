@@ -7,10 +7,8 @@ UltrasonicDistanceSensor distance_sensor{PIN_TRIGGER, PIN_ECHO};
 
 void setup()
 {
-    Serial.begin(9600);
-    while (!Serial) {
-    }
-    delay(1000);
+    // デバック用シリアル通信は9600bps
+    Computer::init(9600);
 
     distance_sensor.init();
     delay(300);
@@ -18,7 +16,7 @@ void setup()
 
 void loop()
 {
-    Serial.println(distance_sensor.read());
+    print(distance_sensor.read());
 
     delay(1000);
 }
