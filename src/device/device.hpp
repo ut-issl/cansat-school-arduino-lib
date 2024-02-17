@@ -2,7 +2,7 @@
 
 #include "ArduCAM.h"
 #include "baro_thermo_hygrometer.hpp"
-#include "Camera2.h"
+#include "camera.hpp"
 #include "cds.hpp"
 #include "computer.hpp"
 #include "dc_motor.hpp"
