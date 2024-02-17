@@ -9,7 +9,7 @@
 #include "gps_receiver.hpp"
 #include "imu.hpp"
 #include "memorysaver.h"
-#include "Microphone.h"
+#include "microphone.hpp"
 #include "PIN_ASSIGN.h"
 #include "SD.h"
 #include "Servo.h"
