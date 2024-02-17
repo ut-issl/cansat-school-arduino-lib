@@ -2,6 +2,7 @@
 
 void setup()
 {
+    // 通信速度9600bpsでシリアル通信を開始
     Computer::init(9600);
 }
 

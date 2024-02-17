@@ -6,15 +6,16 @@ GPSReceiver gps{PIN_GPS_TX};
 
 void setup()
 {
-    // デバック用シリアル通信は9600bps
     Computer::init(9600);
 
     gps.init();
+
     delay(300);
 }
 
 void loop()
 {
+    // GPSから取得した情報をシリアルモニタに表示
     gps.read().print();
 
     delay(1000);

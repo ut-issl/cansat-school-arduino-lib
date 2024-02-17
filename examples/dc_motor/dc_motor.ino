@@ -7,10 +7,10 @@ DCMotor dc_motor{PIN_DC_MOTER_1, PIN_DC_MOTER_2};
 
 void setup()
 {
-    // デバック用シリアル通信は9600bps
     Computer::init(9600);
 
     dc_motor.init();
+
     delay(300);
 }
 

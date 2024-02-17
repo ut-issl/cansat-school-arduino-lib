@@ -46,7 +46,6 @@ namespace Device
             cam_.wrSensorReg8_8(0xff, 0x01);
             cam_.rdSensorReg8_8(OV2640_CHIPID_HIGH, &vid);
             cam_.rdSensorReg8_8(OV2640_CHIPID_LOW, &pid);
-            print(vid, pid);
             if ((vid != 0x26) && ((pid != 0x41) || (pid != 0x42))) {
                 print(F("CAMERA: ACK CMD Can't find OV2640 module!"));
                 delay(1000);
@@ -113,13 +112,11 @@ namespace Device
         cam_.CS_HIGH();
 
         if (length >= MAX_FIFO_SIZE) {  // 8M
-            print("CAMERA: Over size.");
-            print("CAMERA: Failed to take pic");
+            print(F("CAMERA: Over size."));
             return false;
         }
         if (length == 0) {  // 0 kb
             print(F("CAMERA: Size is 0."));
-            print("CAMERA: Failed to take pic");
             return false;
         }
 
@@ -161,13 +158,10 @@ namespace Device
                     cam_.set_fifo_burst();
                 }
             } else if ((temp == 0xD8) & (temp_last == 0xFF)) {
-                print("CAMERA: HEADER FOUND!!!");
+                print(F("CAMERA: HEADER FOUND!!!"));
                 is_header = true;
 
                 cam_.CS_HIGH();
-                // SD_Write("picname:" + SD_GetDirName() + String(file_name));
-                // print(F("CAMERA: picname: "));
-                // print(SD_GetDirName() + String(file_name));
 
                 output_file = SD.open(file_name, O_WRITE | O_CREAT | O_TRUNC);
                 if (!output_file) {

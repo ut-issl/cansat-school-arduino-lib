@@ -6,10 +6,11 @@ String file_name = "log.txt";
 
 void setup()
 {
-    // デバック用シリアル通信は9600bps
     Computer::init(9600);
 
+    // SDカードの初期化
     SDCard::init(PIN_SD_SS);
+
     delay(300);
 }
 

@@ -6,10 +6,10 @@ ServoMotor servo{PIN_SERVO};
 
 void setup()
 {
-    // デバック用シリアル通信は9600bps
     Computer::init(9600);
 
     servo.init();
+
     delay(300);
 }
 
