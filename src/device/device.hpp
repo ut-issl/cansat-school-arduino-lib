@@ -5,7 +5,7 @@
 #include "Camera2.h"
 #include "cds.hpp"
 #include "computer.hpp"
-#include "DCMotor.h"
+#include "dc_motor.hpp"
 #include "gps_receiver.hpp"
 #include "imu.hpp"
 #include "memorysaver.h"
