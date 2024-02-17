@@ -3,7 +3,7 @@
 
 #include <Servo.h>
 
-#include "./PIN_ASSIGN.h"
+#include "pin_config.hpp"
 
 /*
 http://akizukidenshi.com/catalog/g/gM-08914/

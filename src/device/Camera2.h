@@ -11,7 +11,7 @@ https://www.switch-science.com/catalog/3780/
 
 #include <SPI.h>
 
-#include "./PIN_ASSIGN.h"
+#include "pin_config.hpp"
 
 // 初期化
 void CAM2_Init();
