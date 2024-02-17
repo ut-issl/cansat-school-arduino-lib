@@ -10,7 +10,7 @@
 #include "imu.hpp"
 #include "memorysaver.h"
 #include "microphone.hpp"
-#include "PIN_ASSIGN.h"
+#include "pin_config.hpp"
 #include "SD.h"
 #include "Servo.h"
 #include "ultrasonic_distance_sensor.hpp"
