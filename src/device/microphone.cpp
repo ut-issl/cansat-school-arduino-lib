@@ -5,14 +5,14 @@
 namespace Device
 {
 
-    Microphone::Microphone(const uint8_t& input_pin)
-        : input_pin_(input_pin)
+    Microphone::Microphone(const uint8_t& output_pin)
+        : output_pin_(output_pin)
     {
     }
 
     void Microphone::init()
     {
-        pinMode(input_pin_, INPUT);
+        pinMode(output_pin_, INPUT);
 
         print(F("Init Microphone"));
     }
@@ -21,7 +21,7 @@ namespace Device
     {
         uint32_t sum = 0;
         for (int8_t i = 0; i < sampling_num_; ++i) {
-            uint32_t value = abs(analogRead(input_pin_) - median_);
+            uint32_t value = abs(analogRead(output_pin_) - median_);
             sum += value;
         }
         uint8_t average = sum / sampling_num_;

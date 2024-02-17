@@ -5,9 +5,9 @@
 namespace Device
 {
 
-    ServoMotor::ServoMotor(const uint8_t& out_pin)
+    ServoMotor::ServoMotor(const uint8_t& input_pin)
     {
-        servo_.attach(out_pin);
+        servo_.attach(input_pin);
         this->rotateTo(0);
     }
 

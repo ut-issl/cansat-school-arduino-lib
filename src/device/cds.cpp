@@ -5,8 +5,8 @@
 namespace Device
 {
 
-    CdS::CdS(const uint8_t& input_pin)
-        : input_pin_(input_pin)
+    CdS::CdS(const uint8_t& output_pin)
+        : output_pin_(output_pin)
     {
     }
 
@@ -17,7 +17,7 @@ namespace Device
 
     uint16_t CdS::read()
     {
-        return analogRead(input_pin_);
+        return analogRead(output_pin_);
     }
 
 }  // namespace Device

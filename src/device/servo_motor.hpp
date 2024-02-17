@@ -9,7 +9,7 @@ namespace Device
     {
       public:
 
-        ServoMotor(const uint8_t& out_pin);
+        ServoMotor(const uint8_t& input_pin);
         ~ServoMotor();
 
         void init();
