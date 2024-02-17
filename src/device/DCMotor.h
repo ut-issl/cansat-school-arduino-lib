@@ -7,7 +7,7 @@ https://akizukidenshi.com/catalog/g/gK-09848/
 */
 
 // #################### DC Motor ####################
-#include "./PIN_ASSIGN.h"
+#include "pin_config.hpp"
 
 // 初期化
 void DCM_Init();

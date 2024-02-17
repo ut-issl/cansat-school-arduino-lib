@@ -13,7 +13,7 @@ http://akizukidenshi.com/download/ds/akizuki/AE-microSD-LLCNV_sch_20190218_01.pd
 */
 
 // #################### SD ####################
-#include "./PIN_ASSIGN.h"
+#include "pin_config.hpp"
 
 
 void SD_Init();
