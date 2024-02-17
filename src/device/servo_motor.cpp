@@ -8,6 +8,7 @@ namespace Device
     ServoMotor::ServoMotor(const uint8_t& out_pin)
     {
         servo_.attach(out_pin);
+        this->rotateTo(0);
     }
 
     ServoMotor::~ServoMotor()
