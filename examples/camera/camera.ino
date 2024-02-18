@@ -24,6 +24,6 @@ void setup()
 
 void loop()
 {
-    camera.takePictureAndSaveAs("image" + String(millis()) + ".jpg");
+    camera.takePictureAndSaveAs(String(millis()) + ".jpg");
     delay(10000);
 }

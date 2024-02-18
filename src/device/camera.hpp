@@ -22,13 +22,10 @@ namespace Device
 
       private:
 
-        void takePicture_();
-        bool savePictureToSD_(const String& file_name);
-
         uint8_t ss_pin_;
 
         ArduCAM cam_;
-        uint8_t size_ = OV2640_160x120;
+        uint8_t size_ = OV2640_320x240;
     };
 
 }  // namespace Device

@@ -69,15 +69,85 @@ namespace Device
 
     bool Camera::takePictureAndSaveAs(const String& file_name)
     {
-        takePicture_();
-
-        if (!savePictureToSD_(file_name)) {
-            return false;
-        }
-
-        // Clear the capture done flag
+        char str[8];
+        byte buf[256];
+        static int i = 0;
+        static int k = 0;
+        uint8_t temp = 0,temp_last=0;
+        uint32_t length = 0;
+        bool is_header = false;
+        File outFile;
+        //Flush the FIFO
+        cam_.flush_fifo();
+        //Clear the capture done flag
         cam_.clear_fifo_flag();
-
+        cam_.OV2640_set_JPEG_size(size_);
+        //Start capture
+        cam_.start_capture();
+        Computer::print(F("start Capture"));
+        while(!cam_.get_bit(ARDUCHIP_TRIG , CAP_DONE_MASK));
+        Computer::print(F("Capture Done"));
+        length = cam_.read_fifo_length();
+        // Serial.print(F("The fifo length is :"));
+        // Serial.println(length, DEC);
+        if (length >= MAX_FIFO_SIZE) //384K
+        {
+          Serial.println(F("Over size."));
+          return false;
+        }
+        if (length == 0 ) //0 kb
+        {
+          Serial.println(F("Size is 0."));
+          return false;
+        }
+        //Open the new file
+        outFile = SD.open(file_name, O_WRITE | O_CREAT | O_TRUNC);
+        if(!outFile){
+          Serial.println(F("File open faild"));
+          return;
+        }
+        cam_.CS_LOW();
+        cam_.set_fifo_burst();
+        while ( length-- )
+        {
+          temp_last = temp;
+          temp =  SPI.transfer(0x00);
+          //Read JPEG data from FIFO
+          if ( (temp == 0xD9) && (temp_last == 0xFF) ) //If find the end ,break while,
+          {
+            buf[i++] = temp;  //save the last  0XD9     
+            //Write the remain bytes in the buffer
+            cam_.CS_HIGH();
+            outFile.write(buf, i);    
+            //Close the file
+            outFile.close();
+            Computer::print("Image saved as:", file_name);
+            is_header = false;
+            i = 0;
+          }  
+          if (is_header == true)
+          { 
+            //Write image data to buffer if not full
+            if (i < 256)
+            buf[i++] = temp;
+            else
+            {
+              //Write 256 bytes image data to file
+              cam_.CS_HIGH();
+              outFile.write(buf, 256);
+              i = 0;
+              buf[i++] = temp;
+              cam_.CS_LOW();
+              cam_.set_fifo_burst();
+            }        
+          }
+          else if ((temp == 0xD8) & (temp_last == 0xFF))
+          {
+            is_header = true;
+            buf[i++] = temp_last;
+            buf[i++] = temp;   
+          } 
+        }
         return true;
     }
 
@@ -85,98 +155,4 @@ namespace Device
     {
         size_ = size;
     }
-
-    void Camera::takePicture_()
-    {
-        cam_.CS_HIGH();
-
-        cam_.CS_LOW();
-        cam_.flush_fifo();
-        cam_.clear_fifo_flag();
-        cam_.OV2640_set_JPEG_size(size_);
-
-        cam_.start_capture();
-        print(F("CAMERA: Start Capture"));
-
-        while (!cam_.get_bit(ARDUCHIP_TRIG, CAP_DONE_MASK)) {
-        }
-
-        print(F("CAMERA: Capture Done."));
-    }
-
-    bool Camera::savePictureToSD_(const String& file_name)
-    {
-        byte buf[256];
-
-        uint32_t length = cam_.read_fifo_length();
-        cam_.CS_HIGH();
-
-        if (length >= MAX_FIFO_SIZE) {  // 8M
-            print(F("CAMERA: Over size."));
-            return false;
-        }
-        if (length == 0) {  // 0 kb
-            print(F("CAMERA: Size is 0."));
-            return false;
-        }
-
-        cam_.CS_LOW();
-        cam_.set_fifo_burst();  // Set fifo burst mode
-
-        int i = 0;
-        bool is_header = false;
-        File output_file;
-        uint8_t temp = 0, temp_last = 0;
-        while (length--) {
-            temp_last = temp;
-            temp = SPI.transfer(0x00);
-            // Read JPEG data from FIFO
-            if ((temp == 0xD9) && (temp_last == 0xFF)) {  // If find the end ,break while,
-                buf[i++] = temp;                          // save the last  0XD9
-                // Write the remain bytes in the buffer
-                cam_.CS_HIGH();
-                output_file.write(buf, i);
-                // Close the file
-                output_file.close();
-                print(F("CAMERA: Save OK"));
-                is_header = false;
-                cam_.CS_LOW();
-                cam_.set_fifo_burst();
-                i = 0;
-            }
-            if (is_header == true) {
-                // Write image data to buffer if not full
-                if (i < 256) {
-                    buf[i++] = temp;
-                } else {
-                    // Write 256 bytes image data to file
-                    cam_.CS_HIGH();
-                    output_file.write(buf, 256);
-                    i = 0;
-                    buf[i++] = temp;
-                    cam_.CS_LOW();
-                    cam_.set_fifo_burst();
-                }
-            } else if ((temp == 0xD8) & (temp_last == 0xFF)) {
-                print(F("CAMERA: HEADER FOUND!!!"));
-                is_header = true;
-
-                cam_.CS_HIGH();
-
-                output_file = SD.open(file_name, O_WRITE | O_CREAT | O_TRUNC);
-                if (!output_file) {
-                    print(F("SD: File open failed"));
-                }
-                cam_.CS_LOW();
-                cam_.set_fifo_burst();
-                buf[i++] = temp_last;
-                buf[i++] = temp;
-            }
-        }
-
-        cam_.CS_HIGH();
-        return true;
-    }
-
-
 }  // namespace Device
