@@ -19,6 +19,8 @@ namespace Device
         void setMinRange(const float& min_range);
         void setMaxRange(const float& max_range);
 
+        void setTemperature(const float& temperature);
+
       private:
 
         uint8_t trigger_pin_;

@@ -49,4 +49,9 @@ namespace Device
         max_range_ = max_range;
     }
 
+    void UltrasonicDistanceSensor::setTemperature(const float& temperature)
+    {
+        sound_speed_ = 0.020068 * sqrt(temperature + 273.15);
+    }
+
 }  // namespace Device

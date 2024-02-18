@@ -15,6 +15,10 @@ void setup()
     // 超音波距離センサーを初期化
     distance_sensor.init();
 
+    // 温度を設定する場合
+    // 距離の計算時に使う音速の値を設定した温度基準に合わせることができる
+    // distance_sensor.setTemperature(20);
+
     delay(300);
 }
 
