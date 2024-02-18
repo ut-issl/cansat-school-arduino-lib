@@ -1,4 +1,4 @@
-#include <CanSatHighSchool.h>
+#include <CanSatSchool.h>
 
 #define PIN_GPS_TX 8
 

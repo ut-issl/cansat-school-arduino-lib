@@ -1,4 +1,4 @@
-#include <CanSatHighSchool.h>
+#include <CanSatSchool.h>
 
 #define PIN_TRIGGER 9
 #define PIN_ECHO 17

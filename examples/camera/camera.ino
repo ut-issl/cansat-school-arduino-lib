@@ -1,4 +1,4 @@
-#include <CanSatHighSchool.h>
+#include <CanSatSchool.h>
 
 #define PIN_CAMERA_SS 7
 #define PIN_SD_SS 10

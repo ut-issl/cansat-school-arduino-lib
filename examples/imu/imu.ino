@@ -1,4 +1,4 @@
-#include <CanSatHighSchool.h>
+#include <CanSatSchool.h>
 
 IMU imu;
 

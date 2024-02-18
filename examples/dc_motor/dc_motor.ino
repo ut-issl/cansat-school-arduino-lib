@@ -1,4 +1,4 @@
-#include <CanSatHighSchool.h>
+#include <CanSatSchool.h>
 
 #define PIN_DC_MOTER_1 5
 #define PIN_DC_MOTER_2 6
