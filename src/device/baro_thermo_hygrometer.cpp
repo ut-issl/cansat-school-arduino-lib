@@ -60,7 +60,7 @@ namespace Device
         dig_t3_ = ((int16_t)((buffer_[5] << 8) | buffer_[4]));
 
         dig_p1_ = ((uint16_t)((buffer_[7] << 8) | buffer_[6]));
-        dig_p1_ = ((int16_t)((buffer_[9] << 8) | buffer_[8]));
+        dig_p2_ = ((int16_t)((buffer_[9] << 8) | buffer_[8]));
         dig_p3_ = ((int16_t)((buffer_[11] << 8) | buffer_[10]));
         dig_p4_ = ((int16_t)((buffer_[13] << 8) | buffer_[12]));
         dig_p5_ = ((int16_t)((buffer_[15] << 8) | buffer_[14]));
@@ -88,6 +88,8 @@ namespace Device
         dig_h4_ = ((int16_t)((buffer_[3] << 4) + (buffer_[4] & 0x0F)));
         dig_h5_ = ((int16_t)((buffer_[5] << 4) + ((buffer_[4] >> 4) & 0x0F)));
         dig_h6_ = ((int8_t)buffer_[6]);
+
+        this->read();  // 1回測定しておく
 
         print(F("Init Barometer and Thermo-Hygrometer"));
     }
@@ -142,7 +144,7 @@ namespace Device
         var2 = (((var1 >> 2) * (var1 >> 2)) >> 11) * ((int32_t)dig_p6_);
         var2 = var2 + ((var1 * ((int32_t)dig_p5_)) << 1);
         var2 = (var2 >> 2) + (((int32_t)dig_p4_) << 16);
-        var1 = (((dig_p3_ * (((var1 >> 2) * (var1 >> 2)) >> 13)) >> 3) + ((((int32_t)dig_p1_) * var1) >> 1)) >> 18;
+        var1 = (((dig_p3_ * (((var1 >> 2) * (var1 >> 2)) >> 13)) >> 3) + ((((int32_t)dig_p2_) * var1) >> 1)) >> 18;
         var1 = ((((32768 + var1)) * ((int32_t)dig_p1_)) >> 15);
         if (var1 == 0) {
             return 0;  // avoid exception caused by division by zero
