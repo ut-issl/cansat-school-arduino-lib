@@ -13,12 +13,13 @@ namespace Device
         ~ServoMotor();
 
         void init();
-        void rotateTo(int angle);  // set angle in degrees, 0 to 180
+        void rotateTo(int angle);  // set angle in degrees, 1 to 180
         int read() const;          // returns the current angle in degrees
 
       private:
 
         Servo servo_;
+        uint8_t input_pin_;
     };
 
 

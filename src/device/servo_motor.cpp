@@ -6,9 +6,8 @@ namespace Device
 {
 
     ServoMotor::ServoMotor(const uint8_t& input_pin)
+        : input_pin_(input_pin)
     {
-        servo_.attach(input_pin);
-        this->rotateTo(0);
     }
 
     ServoMotor::~ServoMotor()
@@ -18,13 +17,21 @@ namespace Device
 
     void ServoMotor::init()
     {
-        servo_.write(0);
+        servo_.attach(input_pin_);
+        delay(1000);
+        this->rotateTo(1);
 
         print(F("Init Servo Motor"));
     }
 
     void ServoMotor::rotateTo(int angle)
     {
+        if (angle < 1) {
+            angle = 1;
+        }
+        if (angle > 180) {
+            angle = 180;
+        }
         servo_.write(angle);
     }
 
