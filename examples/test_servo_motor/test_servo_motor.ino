@@ -25,21 +25,21 @@ void loop()
     // 500ms 待つ
     delay(500);
     // サーボモーターの角度を取得してシリアルモニタに表示
-    print(servo.read());
+    print(servo.read(), "deg");
 
     // サーボモーターを90度に回転
     servo.rotateTo(90);
     // 500ms 待つ
     delay(500);
     // サーボモーターの角度を取得してシリアルモニタに表示
-    print(servo.read());
+    print(servo.read(), "deg");
 
     // サーボモーターを180度に回転
     servo.rotateTo(180);
     // 500ms 待つ
     delay(500);
     // サーボモーターの角度を取得してシリアルモニタに表示
-    print(servo.read());
+    print(servo.read(), "deg");
 
     // 1s 待つ
     delay(1000);

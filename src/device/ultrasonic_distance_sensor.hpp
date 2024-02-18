@@ -14,7 +14,7 @@ namespace Device
         ~UltrasonicDistanceSensor() = default;
 
         void init();
-        float read() override;
+        float read() override;  // distance [mm]
 
         void setMinRange(const float& min_range);
         void setMaxRange(const float& max_range);

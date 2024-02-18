@@ -25,7 +25,7 @@ void setup()
 void loop()
 {
     // 超音波距離センサーの値を取得してシリアルモニタに表示
-    print(distance_sensor.read());
+    print(distance_sensor.read(), "mm");
 
     // 超音波距離センサーの値を取得して変数に代入したい場合
     // float distance = distance_sensor.read();
