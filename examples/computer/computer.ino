@@ -2,12 +2,16 @@
 
 void setup()
 {
-    // 通信速度9600bpsでシリアル通信を開始
+    // シリアル通信 (Arduino-PC) を初期化
+    // 9600bps で通信を開始
     Computer::init(9600);
 }
 
 void loop()
 {
+    // シリアルモニタに "Hello, World!" と表示
     print("Hello, World!");
+
+    // 1s 待つ
     delay(1000);
 }

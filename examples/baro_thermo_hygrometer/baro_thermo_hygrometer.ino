@@ -23,13 +23,13 @@ void loop()
     // 気圧、温度、湿度を取得してシリアルモニタに表示
     bth.read().print();
 
-    // 気圧を取得したい場合
+    // 気圧を取得して変数に代入したい場合
     // float pressure = bth.read().pressure;
 
-    // 温度を取得したい場合
+    // 温度を取得して変数に代入したい場合
     // float temperature = bth.read().temperature;
 
-    // 湿度を取得したい場合
+    // 湿度を取得して変数に代入したい場合
     // float humidity = bth.read().humidity;
 
     // 1s 待つ

@@ -26,6 +26,9 @@ void loop()
     // 光センサの値を取得してシリアルモニタに表示
     print(cds.read());
 
+    // 光センサの値を取得して変数に代入したい場合
+    // int cds_value = cds.read();
+
     // 1s 待つ
     delay(1000);
 }
