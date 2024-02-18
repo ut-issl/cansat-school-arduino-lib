@@ -17,7 +17,7 @@ namespace Device
 
     uint16_t CdS::read()
     {
-        return analogRead(output_pin_);
+        return (uint16_t)(analogRead(output_pin_) / 1024.0 * 100);
     }
 
 }  // namespace Device
