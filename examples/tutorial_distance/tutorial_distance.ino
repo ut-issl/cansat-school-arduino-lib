@@ -39,8 +39,7 @@ void setup()
 void loop()
 {
     // 超音波距離センサーの値を取得してシリアルモニタに表示
-    // シリアルプロッタで描画することもできる
-    print("Distance:", distance_sensor.read());
+    print("Distance:", distance_sensor.read(), "mm");
 
     // 1s 待つ
     delay(500);
