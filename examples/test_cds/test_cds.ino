@@ -18,7 +18,7 @@ void setup()
     // 光センサを初期化
     cds.init();
 
-    delay(300);
+    delay(500);
 }
 
 void loop()

@@ -14,7 +14,7 @@ void setup()
     // SDカードの初期化
     SDCard::init(PIN_SD_SS);
 
-    delay(300);
+    delay(500);
 }
 
 void loop()

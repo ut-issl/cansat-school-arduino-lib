@@ -14,7 +14,7 @@ void setup()
     // GPS を初期化
     gps.init();
 
-    delay(300);
+    delay(500);
 }
 
 void loop()

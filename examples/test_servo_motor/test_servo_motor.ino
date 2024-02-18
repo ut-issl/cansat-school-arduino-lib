@@ -14,7 +14,7 @@ void setup()
     // サーボモーターを初期化
     servo.init();
 
-    delay(300);
+    delay(500);
 }
 
 void loop()

@@ -5,6 +5,8 @@ void setup()
     // シリアル通信 (Arduino-PC) を初期化
     // 9600bps で通信を開始
     Computer::init(9600);
+
+    delay(500);
 }
 
 void loop()

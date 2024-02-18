@@ -35,6 +35,8 @@ void setup()
     // 地表の海抜高度を計算する
     altitude_at_ground = calculateAltitudeFromPressure(pressure_at_ground);
     print("Altitude at ground:", altitude_at_ground, "m\n");
+
+    delay(500);
 }
 
 void loop()

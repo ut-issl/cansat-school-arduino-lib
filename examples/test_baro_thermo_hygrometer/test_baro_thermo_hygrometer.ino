@@ -15,7 +15,7 @@ void setup()
     // 気圧・温湿度計を初期化
     bth.init();
 
-    delay(300);
+    delay(500);
 }
 
 void loop()

@@ -15,7 +15,7 @@ void setup()
     // DCモーターを初期化
     dc_motor.init();
 
-    delay(300);
+    delay(500);
 }
 
 void loop()

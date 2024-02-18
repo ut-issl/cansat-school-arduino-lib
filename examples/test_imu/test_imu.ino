@@ -15,7 +15,7 @@ void setup()
     // IMU の初期化
     imu.init();
 
-    delay(300);
+    delay(500);
 }
 
 void loop()

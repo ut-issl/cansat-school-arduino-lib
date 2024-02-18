@@ -19,7 +19,7 @@ void setup()
     // 距離の計算時に使う音速の値を設定した温度基準に合わせることができる
     // distance_sensor.setTemperature(20);
 
-    delay(300);
+    delay(500);
 }
 
 void loop()

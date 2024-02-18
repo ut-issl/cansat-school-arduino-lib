@@ -18,7 +18,7 @@ void setup()
     // マイクを初期化
     microphone.init();
 
-    delay(300);
+    delay(500);
 }
 
 void loop()

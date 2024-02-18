@@ -19,7 +19,7 @@ void setup()
 
     camera.init();
 
-    delay(300);
+    delay(500);
 }
 
 void loop()
