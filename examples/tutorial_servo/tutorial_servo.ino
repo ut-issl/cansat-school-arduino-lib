@@ -21,6 +21,7 @@ void loop()
 {
     static uint16_t loop_count = 0;
 
+    // カウンターが 10 の倍数のとき
     if (loop_count % 10 == 0) {
         print(F("Move Up!"));
         // 1度から180度まで 30度ずつ回転
@@ -33,6 +34,8 @@ void loop()
             delay(500);
         }
     }
+
+    // カウンターが 10 の倍数 + 5 のとき
     if (loop_count % 10 == 5) {
         print(F("Move Down!"));
         // 180度から1度まで 1度ずつ回転
@@ -45,6 +48,9 @@ void loop()
         }
     }
 
+    // カウンターをインクリメント
     ++loop_count;
+
+    // 1s 待つ
     delay(1000);
 }
