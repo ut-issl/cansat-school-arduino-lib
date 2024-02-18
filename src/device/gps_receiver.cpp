@@ -7,7 +7,7 @@ namespace Device
 
     void GPS_t::print() const
     {
-        Computer::print(F("Time:"), time, F("Latitude:"), lat, F("Longitude:"), lon, F("Height:"), height);
+        Computer::print(F("Time:"), time, F("Latitude:"), lat, F("Longitude:"), lon, F("Altitude:"), alt);
     }
 
     GPSReceiver::GPSReceiver(const uint8_t& tx_pin)
@@ -57,7 +57,7 @@ namespace Device
                     gps.time = millis() / 1000;
                     gps.lat = ConvertNMEAToDDf_(list[2].toFloat());
                     gps.lon = ConvertNMEAToDDf_(list[4].toFloat());
-                    gps.height = list[9].toFloat();
+                    gps.alt = list[9].toFloat();
                     is_available_ = true;
                 } else {
                     is_available_ = false;

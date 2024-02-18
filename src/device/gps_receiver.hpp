@@ -11,7 +11,7 @@ namespace Device
     {
         float lat;
         float lon;
-        float height;
+        float alt;
         uint16_t time;
 
         void print() const;
