@@ -1,5 +1,5 @@
 # cansat-school-arduino-lib
-CanSat High School 用の Arduino Library `CanSatSchool` を提供
+CanSat School 用の Arduino Library `CanSatSchool` を提供
 
 ## 使い方
 
