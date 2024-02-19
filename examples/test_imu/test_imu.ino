@@ -5,14 +5,14 @@ IMU imu;
 
 void setup()
 {
-    // シリアル通信 (Arduino-PC) の初期化
+    // シリアル通信 (Arduino-PC) を初期化
     Computer::init(9600);
 
     // Wire (Arduino-I2C) を初期化
     // IMU は I2C を使用するためこれが必要
     Wire.begin();
 
-    // IMU の初期化
+    // IMU を初期化
     imu.init();
 
     delay(500);

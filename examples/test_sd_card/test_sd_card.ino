@@ -11,7 +11,7 @@ void setup()
     // シリアル通信 (Arduino-PC) を初期化
     Computer::init(9600);
 
-    // SDカードの初期化
+    // SDカードを初期化
     SDCard::init(PIN_SD_SS);
 
     delay(500);
