@@ -8,31 +8,30 @@
 namespace Device::SDCard
 {
 
-    void init(const uint8_t& ss_pin)
+    bool init(uint8_t ss_pin)
     {
         print(F("[SDCard] Initializing..."));
 
         pinMode(ss_pin, OUTPUT);
         if (!SD.begin(ss_pin)) {
-            Computer::print(F("[SDCard] Failed to initialize"));
-            while (true) {
-                // do nothing
-            }
+            print(F("[SDCard] Failed to initialize"));
+            return false;
         }
-        Computer::print(F("[SDCard] Initialized"));
+
+        print(F("[SDCard] Initialized"));
+        return true;
     }
 
-    void write(const String& file_name, const String& data)
+    bool write(const String& file_name, const String& data)
     {
         File file = SD.open(file_name, FILE_WRITE);
-
-        if (file) {
-            file.println(data);
-            file.close();
-        } else {
-            Computer::print(F("[SDCard] Failed to open file"));
+        if (!file) {
+            print(F("[SDCard] Failed to open file"));
+            return false;
         }
+        file.println(data);
         file.close();
+        return true;
     }
 
 }  // namespace Device::SDCard

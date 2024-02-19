@@ -9,7 +9,7 @@ namespace Device
     {
       public:
 
-        Microphone(const uint8_t& output_pin);
+        Microphone(uint8_t output_pin);
         ~Microphone() = default;
 
         void init();

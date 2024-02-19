@@ -5,7 +5,7 @@
 namespace Device
 {
 
-    Microphone::Microphone(const uint8_t& output_pin)
+    Microphone::Microphone(uint8_t output_pin)
         : output_pin_(output_pin)
     {
     }

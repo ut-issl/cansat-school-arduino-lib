@@ -5,7 +5,7 @@
 namespace Device
 {
 
-    CdS::CdS(const uint8_t& output_pin)
+    CdS::CdS(uint8_t output_pin)
         : output_pin_(output_pin)
     {
     }

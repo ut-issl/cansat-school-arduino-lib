@@ -5,12 +5,12 @@
 namespace Device
 {
 
-    UltrasonicDistanceSensor::UltrasonicDistanceSensor(const uint8_t& trigger_pin, const uint8_t& echo_pin)
+    UltrasonicDistanceSensor::UltrasonicDistanceSensor(uint8_t trigger_pin, uint8_t echo_pin)
         : trigger_pin_{trigger_pin}, echo_pin_{echo_pin}
     {
     }
 
-    UltrasonicDistanceSensor::UltrasonicDistanceSensor(const uint8_t& trigger_pin, const uint8_t& echo_pin, const float& temperature)
+    UltrasonicDistanceSensor::UltrasonicDistanceSensor(uint8_t trigger_pin, uint8_t echo_pin, const float& temperature)
         : trigger_pin_{trigger_pin}, echo_pin_{echo_pin}, sound_speed_{0.020068 * sqrt(temperature + 273.15)}
     {
     }

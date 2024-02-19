@@ -9,7 +9,7 @@ namespace Device
     {
       public:
 
-        DCMotor(const uint8_t& input_pin_1, const uint8_t& input_pin_2);
+        DCMotor(uint8_t input_pin_1, uint8_t input_pin_2);
         ~DCMotor();
 
         void init();

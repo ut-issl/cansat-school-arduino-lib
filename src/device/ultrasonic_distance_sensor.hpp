@@ -9,8 +9,8 @@ namespace Device
     {
       public:
 
-        UltrasonicDistanceSensor(const uint8_t& trigger_pin, const uint8_t& echo_pin);
-        UltrasonicDistanceSensor(const uint8_t& trigger_pin, const uint8_t& echo_pin, const float& temperature);
+        UltrasonicDistanceSensor(uint8_t trigger_pin, uint8_t echo_pin);
+        UltrasonicDistanceSensor(uint8_t trigger_pin, uint8_t echo_pin, const float& temperature);
         ~UltrasonicDistanceSensor() = default;
 
         void init();

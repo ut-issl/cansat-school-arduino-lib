@@ -25,19 +25,10 @@ namespace Device
         template <class... Args>
         void print(Args... args)
         {
-            if (millis() < 1e4) {
-                Serial.print(F("   "));
-            } else if (millis() < 1e5) {
-                Serial.print(F("  "));
-            } else if (millis() < 1e6) {
-                Serial.print(F(" "));
-            }
-            Serial.print(millis() / 1e3, 3);
-            Serial.print(F(":  "));
             print_impl(args...);
         }
 
-        inline void init(const unsigned long& baud_rate)
+        inline void init(const unsigned long& baud_rate = 9600)
         {
             Serial.begin(baud_rate);
             while (!Serial) {

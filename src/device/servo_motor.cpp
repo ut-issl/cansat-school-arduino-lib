@@ -5,7 +5,7 @@
 namespace Device
 {
 
-    ServoMotor::ServoMotor(const uint8_t& input_pin)
+    ServoMotor::ServoMotor(uint8_t input_pin)
         : input_pin_(input_pin)
     {
     }

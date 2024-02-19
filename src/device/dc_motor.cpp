@@ -5,7 +5,7 @@
 namespace Device
 {
 
-    DCMotor::DCMotor(const uint8_t& input_pin_1, const uint8_t& input_pin_2)
+    DCMotor::DCMotor(uint8_t input_pin_1, uint8_t input_pin_2)
         : input_pin_1_{input_pin_1}, input_pin_2_{input_pin_2}
     {
     }

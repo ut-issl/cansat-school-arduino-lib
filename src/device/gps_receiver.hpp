@@ -21,7 +21,7 @@ namespace Device
     {
       public:
 
-        GPSReceiver(const uint8_t& tx_pin);
+        GPSReceiver(uint8_t tx_pin);
         ~GPSReceiver() = default;
 
         void init();

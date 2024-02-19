@@ -10,7 +10,7 @@ namespace Device
         Computer::print(F("Time:"), time, F("Latitude:"), lat, F("Longitude:"), lon, F("Altitude:"), alt);
     }
 
-    GPSReceiver::GPSReceiver(const uint8_t& tx_pin)
+    GPSReceiver::GPSReceiver(uint8_t tx_pin)
         : serial_{tx_pin, 0}, is_available_{false}
     {
     }

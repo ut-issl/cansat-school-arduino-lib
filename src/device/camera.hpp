@@ -12,7 +12,7 @@ namespace Device
     {
       public:
 
-        Camera(const uint8_t& ss_pin);
+        Camera(uint8_t ss_pin);
         ~Camera();
 
         void init();

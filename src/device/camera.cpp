@@ -6,7 +6,7 @@
 namespace Device
 {
 
-    Camera::Camera(const uint8_t& ss_pin)
+    Camera::Camera(uint8_t ss_pin)
         : ss_pin_{ss_pin}, cam_{OV2640, ss_pin}
     {
     }
