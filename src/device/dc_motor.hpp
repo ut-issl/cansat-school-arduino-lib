@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Servo.h>
+#include <Arduino.h>
 
 namespace Device
 {
