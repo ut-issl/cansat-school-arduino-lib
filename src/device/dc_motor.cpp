@@ -13,8 +13,6 @@ namespace Device
     DCMotor::~DCMotor()
     {
         this->free();
-        pinMode(input_pin_1_, INPUT);
-        pinMode(input_pin_2_, INPUT);
     }
 
     void DCMotor::init()

@@ -13,6 +13,7 @@ namespace Device
 
     Camera::~Camera()
     {
+        digitalWrite(ss_pin_, LOW);
     }
 
     void Camera::init()
@@ -149,4 +150,5 @@ namespace Device
     {
         size_ = size;
     }
+
 }  // namespace Device
