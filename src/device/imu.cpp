@@ -31,6 +31,8 @@ namespace Device
 
     void IMU::init()
     {
+        print(F("[IMU] Initializing..."));
+
         Wire.beginTransmission(IMU_ADDR_ACCL);
         Wire.write(0x0F);  // Select PMU_Range register
         Wire.write(0x03);  // Range = +/- 2g
@@ -103,7 +105,7 @@ namespace Device
         Wire.endTransmission();
         delay(100);
 
-        print(F("Init IMU"));
+        print(F("[IMU] Initialized"));
     }
 
     IMU_t IMU::read()
@@ -219,31 +221,37 @@ namespace Device
     void IMU::setAccelOffset(const coordinate& offset)
     {
         accel_offset_ = offset;
+        print(F("[IMU] Accel offset set to"), accel_offset_.x, accel_offset_.y, accel_offset_.z);
     }
 
     void IMU::setAccelOffset(float x, float y, float z)
     {
         accel_offset_ = {x, y, z};
+        print(F("[IMU] Accel offset set to"), accel_offset_.x, accel_offset_.y, accel_offset_.z);
     }
 
     void IMU::setGyroOffset(const coordinate& offset)
     {
         gyro_offset_ = offset;
+        print(F("[IMU] Gyro offset set to"), gyro_offset_.x, gyro_offset_.y, gyro_offset_.z);
     }
 
     void IMU::setGyroOffset(float x, float y, float z)
     {
         gyro_offset_ = {x, y, z};
+        print(F("[IMU] Gyro offset set to"), gyro_offset_.x, gyro_offset_.y, gyro_offset_.z);
     }
 
     void IMU::setMagOffset(const coordinate& offset)
     {
         mag_offset_ = offset;
+        print(F("[IMU] Mag offset set to"), mag_offset_.x, mag_offset_.y, mag_offset_.z);
     }
 
     void IMU::setMagOffset(float x, float y, float z)
     {
         mag_offset_ = {x, y, z};
+        print(F("[IMU] Mag offset set to"), mag_offset_.x, mag_offset_.y, mag_offset_.z);
     }
 
 }  // namespace Device

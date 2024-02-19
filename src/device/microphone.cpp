@@ -12,9 +12,11 @@ namespace Device
 
     void Microphone::init()
     {
+        print(F("[Microphone] Initializing..."));
+
         pinMode(output_pin_, INPUT);
 
-        print(F("Init Microphone"));
+        print(F("[Microphone] Initialized"));
     }
 
     int Microphone::read()

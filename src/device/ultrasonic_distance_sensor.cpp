@@ -17,10 +17,12 @@ namespace Device
 
     void UltrasonicDistanceSensor::init()
     {
+        print(F("[UltrasonicDistanceSensor] Initializing..."));
+
         pinMode(trigger_pin_, OUTPUT);
         pinMode(echo_pin_, INPUT);
 
-        print(F("Init Ultrasonic Distance Sensor"));
+        print(F("[UltrasonicDistanceSensor] Initialized"));
     }
 
     float UltrasonicDistanceSensor::read()
@@ -42,16 +44,19 @@ namespace Device
     void UltrasonicDistanceSensor::setMinRange(const float& min_range)
     {
         min_range_ = min_range;
+        print(F("[UltrasonicDistanceSensor] Set min range to"), min_range_, F("mm"));
     }
 
     void UltrasonicDistanceSensor::setMaxRange(const float& max_range)
     {
         max_range_ = max_range;
+        print(F("[UltrasonicDistanceSensor] Set max range to"), max_range_, F("mm"));
     }
 
     void UltrasonicDistanceSensor::setTemperature(const float& temperature)
     {
         sound_speed_ = 0.020068 * sqrt(temperature + 273.15);
+        print(F("[UltrasonicDistanceSensor] Update sound speed to"), sound_speed_, F("m/s"));
     }
 
 }  // namespace Device

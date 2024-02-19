@@ -17,11 +17,13 @@ namespace Device
 
     void ServoMotor::init()
     {
+        print(F("[ServoMotor] Initializing..."));
+
         servo_.attach(input_pin_);
         delay(1000);
         this->rotateTo(1);
 
-        print(F("Init Servo Motor"));
+        print(F("[ServoMotor] Initialized"));
     }
 
     void ServoMotor::rotateTo(int angle)

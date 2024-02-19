@@ -17,11 +17,14 @@ namespace Device
 
     void GPSReceiver::init()
     {
+        print(F("[GPSReceiver] Initializing..."));
+
         serial_.begin(9600);
         while (!serial_) {
         }
         delay(1000);
-        print(F("Init GPS Receiver"));
+
+        print(F("[GPSReceiver] Initialized"));
     }
 
     GPS_t GPSReceiver::read()

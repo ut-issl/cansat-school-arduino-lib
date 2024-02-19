@@ -43,7 +43,7 @@ namespace Device
             while (!Serial) {
             }
             delay(1000);
-            print(F("Init Computer"));
+            print(F("[Computer] Initialized"));
         }
 
     }  // namespace Computer

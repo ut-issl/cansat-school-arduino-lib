@@ -12,7 +12,7 @@ namespace Device
 
     void CdS::init()
     {
-        print(F("Init CdS"));
+        print(F("[CdS] Initialized"));
     }
 
     uint16_t CdS::read()
