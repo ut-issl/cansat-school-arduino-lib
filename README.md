@@ -11,4 +11,4 @@ CanSat High School 用の Arduino Library `CanSatSchool` を提供
     ```
 4. Example を参考にしてプログラムを書く
 
-詳細は [ドキュメント](https://cansat-school.ut-issl.com/arduino/How-To-Use-Library) を参照
+詳細は [ドキュメント](https://cansat-school.ut-issl.com/tutorial/01_library) を参照
