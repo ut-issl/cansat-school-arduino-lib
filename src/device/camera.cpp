@@ -68,7 +68,7 @@ namespace Device
         print(F("[Camera] Initialized"));
     }
 
-    bool Camera::takePictureAndSaveAs(const String& file_name)
+    bool Camera::takePictureAndSaveAs(const String& file_name, unsigned long time_out_ms)
     {
         char str[8];
         byte buf[256];
@@ -83,12 +83,19 @@ namespace Device
         // Clear the capture done flag
         cam_.clear_fifo_flag();
         cam_.OV2640_set_JPEG_size(size_);
-        // Start capture
+
+        // Capture
+        unsigned long start_time = millis();
         cam_.start_capture();
         print(F("[Camera] Start capture"));
         while (!cam_.get_bit(ARDUCHIP_TRIG, CAP_DONE_MASK)) {
+            if ((millis() - start_time) > time_out_ms) {
+                print(F("[Camera] Capture timeout"));
+                return false;
+            }
         }
         print(F("[Camera] Capture done"));
+
         length = cam_.read_fifo_length();
         if (length >= MAX_FIFO_SIZE)  // 384K
         {
@@ -100,11 +107,12 @@ namespace Device
             print(F("[Camera] Image size is 0"));
             return false;
         }
-        // Open the new file
+
+        // Save the image to SD card
         outFile = SD.open(file_name, O_WRITE | O_CREAT | O_TRUNC);
         if (!outFile) {
             print(F("[Camera] Failed to open file"), file_name);
-            return;
+            return false;
         }
         cam_.CS_LOW();
         cam_.set_fifo_burst();
@@ -143,6 +151,7 @@ namespace Device
                 buf[i++] = temp;
             }
         }
+
         return true;
     }
 
