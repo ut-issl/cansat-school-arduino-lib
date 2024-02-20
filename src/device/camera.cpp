@@ -68,7 +68,7 @@ namespace Device
         Utility::print(F("[Camera] Initialized"));
     }
 
-    bool Camera::takePictureAndSaveAs(const String& file_name, unsigned long time_out_ms)
+    bool Camera::takePictureAndSaveAs(const String& file_name, unsigned long timeout_ms)
     {
         char str[8];
         byte buf[256];
@@ -89,7 +89,7 @@ namespace Device
         cam_.start_capture();
         Utility::print(F("[Camera] Start capture"));
         while (!cam_.get_bit(ARDUCHIP_TRIG, CAP_DONE_MASK)) {
-            if ((millis() - start_time) > time_out_ms) {
+            if ((millis() - start_time) > timeout_ms) {
                 Utility::print(F("[Camera] Capture timeout"));
                 return false;
             }

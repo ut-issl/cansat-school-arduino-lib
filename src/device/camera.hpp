@@ -16,7 +16,7 @@ namespace Device
         ~Camera();
 
         void init();
-        bool takePictureAndSaveAs(const String& file_name, unsigned long time_out_ms = 1000);
+        bool takePictureAndSaveAs(const String& file_name, unsigned long timeout_ms = 1000);
 
         void setSize(uint8_t size);
 
