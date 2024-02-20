@@ -1,6 +1,6 @@
 #include "cds.hpp"
 
-#include "computer.hpp"
+#include "../utility/printer.hpp"
 
 namespace Device
 {
@@ -12,7 +12,7 @@ namespace Device
 
     void CdS::init()
     {
-        print(F("[CdS] Initialized"));
+        Utility::print(F("[CdS] Initialized"));
     }
 
     uint16_t CdS::read()

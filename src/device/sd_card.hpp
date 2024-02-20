@@ -2,6 +2,8 @@
 
 #include <SD.h>
 
+#include "../utility/printer.hpp"
+
 namespace Device
 {
 
@@ -27,7 +29,7 @@ namespace Device
     {
         File file = SD.open(file_name, FILE_WRITE);
         if (!file) {
-            print(F("[SDCard] Failed to open file"));
+            Utility::print(F("[SDCard] Failed to open file"));
             return;
         }
 

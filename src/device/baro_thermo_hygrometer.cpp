@@ -1,6 +1,6 @@
 #include "baro_thermo_hygrometer.hpp"
 
-#include "computer.hpp"
+#include "../utility/printer.hpp"
 
 #define BME280_ADDR_ 0x76
 #define CONFIG_ 0xF5
@@ -12,9 +12,9 @@ namespace Device
 
     void BaroThermoHygrometer_t::print() const
     {
-        Computer::print(F("Pressure:"), pressure, F("hPa"));
-        Computer::print(F("Temperature:"), temperature, F("°C"));
-        Computer::print(F("Humidity:"), humidity, F("%"));
+        Utility::print(F("Pressure:"), pressure, F("hPa"));
+        Utility::print(F("Temperature:"), temperature, F("°C"));
+        Utility::print(F("Humidity:"), humidity, F("%"));
     }
 
     BaroThermoHygrometer::BaroThermoHygrometer()
@@ -23,7 +23,7 @@ namespace Device
 
     void BaroThermoHygrometer::init()
     {
-        print(F("[BaroThermoHygrometer] Initializing..."));
+        Utility::print(F("[BaroThermoHygrometer] Initializing..."));
 
         // BME280の設定
         // BME280動作設定
@@ -52,7 +52,7 @@ namespace Device
         Wire.requestFrom(BME280_ADDR_, 26);
         for (uint8_t i = 0; i < 26; i++) {
             while (!Wire.available()) {
-                print(F("[BaroThermoHygrometer] Waiting for receiving data..."));
+                Utility::print(F("[BaroThermoHygrometer] Waiting for receiving data..."));
                 delay(1000);
             }
             buffer_[i] = Wire.read();
@@ -81,7 +81,7 @@ namespace Device
         Wire.requestFrom(BME280_ADDR_, 7);
         for (uint8_t i = 0; i < 7; i++) {
             while (!Wire.available()) {
-                print(F("[BaroThermoHygrometer] Waiting for receiving data..."));
+                Utility::print(F("[BaroThermoHygrometer] Waiting for receiving data..."));
                 delay(1000);
             }
             buffer_[i] = Wire.read();
@@ -95,7 +95,7 @@ namespace Device
 
         this->read();  // 1回測定しておく
 
-        print(F("[BaroThermoHygrometer] Initialized"));
+        Utility::print(F("[BaroThermoHygrometer] Initialized"));
     }
 
     BaroThermoHygrometer_t BaroThermoHygrometer::read()
@@ -120,7 +120,7 @@ namespace Device
         Wire.requestFrom(BME280_ADDR_, 8);
         for (uint8_t i = 0; i < 8; i++) {
             if (!Wire.available()) {
-                print(F("[BaroThermoHygrometer] Cannot receive data"));
+                Utility::print(F("[BaroThermoHygrometer] Cannot receive data"));
                 return data;
             }
             buffer_[i] = Wire.read();

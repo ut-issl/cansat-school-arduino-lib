@@ -1,7 +1,6 @@
 #pragma once
 
-#include "../device/computer.hpp"
-#include "../device/sd_card.hpp"
+#include <Arduino.h>
 
 namespace Utility
 {
