@@ -5,10 +5,10 @@
 
 #include "computer.hpp"
 
-namespace Device::SDCard
+namespace Device
 {
 
-    bool init(uint8_t ss_pin)
+    bool SDCard::init(uint8_t ss_pin)
     {
         print(F("[SDCard] Initializing..."));
 
@@ -22,16 +22,4 @@ namespace Device::SDCard
         return true;
     }
 
-    bool write(const String& file_name, const String& data)
-    {
-        File file = SD.open(file_name, FILE_WRITE);
-        if (!file) {
-            print(F("[SDCard] Failed to open file"));
-            return false;
-        }
-        file.println(data);
-        file.close();
-        return true;
-    }
-
-}  // namespace Device::SDCard
+}  // namespace Device

@@ -5,12 +5,49 @@
 namespace Device
 {
 
-    namespace SDCard
+    class SDCard
     {
+      public:
 
-        bool init(uint8_t ss_pin);
-        bool write(const String& file_name, const String& data);  // ファイル名に `_` を含んではいけない
+        static bool init(uint8_t ss_pin);
 
-    }  // namespace SDCard
+        template <class... Args>
+        static void write(const String& file_name, Args... args);
+
+      private:
+
+        template <class Last>
+        static void write_impl(File& file, Last last);
+        template <class Head, class... Args>
+        static void write_impl(File& file, Head head, Args... args);
+    };
+
+    template <class... Args>
+    void SDCard::write(const String& file_name, Args... args)
+    {
+        File file = SD.open(file_name, FILE_WRITE);
+        if (!file) {
+            print(F("[SDCard] Failed to open file"));
+            return;
+        }
+
+        write_impl(file, args...);
+
+        file.close();
+    }
+
+    template <class Last>
+    void SDCard::write_impl(File& file, Last last)
+    {
+        file.println(last);
+    }
+
+    template <class Head, class... Args>
+    void SDCard::write_impl(File& file, Head head, Args... args)
+    {
+        file.print(head);
+        file.print(" ");
+        write_impl(file, args...);
+    }
 
 }  // namespace Device
