@@ -8,14 +8,7 @@ namespace Device
     namespace Computer
     {
 
-        inline void init(const unsigned long& baud_rate = 9600)
-        {
-            Serial.begin(baud_rate);
-            while (!Serial) {
-            }
-            delay(1000);
-            // print(F("[Computer] Initialized"));
-        }
+        bool init(const unsigned long& baud_rate = 9600, const unsigned long& timeout_ms = 10000);
 
     }  // namespace Computer
 

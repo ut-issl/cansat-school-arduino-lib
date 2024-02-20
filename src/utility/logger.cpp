@@ -12,8 +12,11 @@ namespace Utility
 
     bool Logger::enableComputer(const unsigned long& baud_rate)
     {
-        Device::Computer::init(baud_rate);
         use_computer_ = true;
+        if (!Device::Computer::init(baud_rate)) {
+            use_computer_ = false;
+            return false;
+        }
         return true;
     }
 
