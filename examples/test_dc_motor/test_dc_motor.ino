@@ -9,8 +9,8 @@ DCMotor dc_motor{PIN_DC_MOTER_1, PIN_DC_MOTER_2};
 
 void setup()
 {
-    // シリアル通信 (Arduino-PC) を初期化
-    Computer::init(9600);
+    // ロガーを初期化
+    logger.enableComputer();
 
     // DCモーターを初期化
     dc_motor.init();
@@ -20,19 +20,19 @@ void setup()
 
 void loop()
 {
-    print(F("Forward"));
-    dc_motor.forward();  // 正転
+    // 正転
+    dc_motor.forward();
     delay(5000);
 
-    print(F("Free"));
-    dc_motor.free();  // 空転
+    // 空転
+    dc_motor.free();
     delay(5000);
 
-    print(F("Reverse"));
-    dc_motor.reverse();  // 逆転
+    // 逆転
+    dc_motor.reverse();
     delay(5000);
 
-    print(F("Brake"));
-    dc_motor.brake();  // 停止
+    // 停止
+    dc_motor.brake();
     delay(5000);
 }

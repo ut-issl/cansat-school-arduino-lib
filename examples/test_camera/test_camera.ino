@@ -10,8 +10,8 @@ Camera camera{PIN_CAMERA_SS};
 
 void setup()
 {
-    // シリアル通信 (Arduino-PC) を初期化
-    Computer::init(9600);
+    // ロガーを初期化
+    logger.enableComputer();
 
     // Wire (Arduino-I2C) を初期化
     // カメラは I2C を使用するためこれが必要

@@ -12,8 +12,8 @@ BaroThermoHygrometer bth;
 
 void setup()
 {
-    // シリアル通信 (Arduino-PC) を初期化
-    Computer::init(9600);
+    // ロガーを初期化
+    logger.enableComputer();
 
     // Wire (Arduino-I2C) を初期化
     Wire.begin();
@@ -29,7 +29,7 @@ void setup()
 
     // 温度を取得
     float temperature = bth.read().temperature;
-    print("Temperature:", temperature, "°C");
+    logger.info("Temperature:", temperature, "°C");
     // 超音波センサーに温度を設定
     distance_sensor.setTemperature(temperature);
 
@@ -39,7 +39,8 @@ void setup()
 void loop()
 {
     // 超音波距離センサーの値を取得してシリアルモニタに表示
-    print("Distance:", distance_sensor.read(), "mm");
+    // このようなフォーマットで出力することで，シリアルプロッタでグラフを描画することもできる
+    print("Distance:", distance_sensor.read());
 
     // 1s 待つ
     delay(500);

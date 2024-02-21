@@ -9,8 +9,8 @@ UltrasonicDistanceSensor distance_sensor{PIN_TRIGGER, PIN_ECHO};
 
 void setup()
 {
-    // シリアル通信 (Arduino-PC) を初期化
-    Computer::init(9600);
+    // ロガーを初期化
+    logger.enableComputer();
 
     // 超音波距離センサーを初期化
     distance_sensor.init();
@@ -25,10 +25,10 @@ void setup()
 void loop()
 {
     // 超音波距離センサーの値を取得してシリアルモニタに表示
-    print(distance_sensor.read(), "mm");
+    logger.info(distance_sensor.read(), "[m]");
 
     // 超音波距離センサーの値を取得して変数に代入したい場合
-    // float distance = distance_sensor.read();
+    // float distance = distance_sensor.read();  // [m]
 
     // 1s 待つ
     delay(1000);

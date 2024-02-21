@@ -8,8 +8,9 @@ ServoMotor servo{PIN_SERVO};
 
 void setup()
 {
-    // シリアル通信 (Arduino-PC) を初期化
-    Computer::init(9600);
+    // ロガーを初期化
+    logger.enableComputer();
+    // logger.setDebug();  // デバッグ出力を有効にする
 
     // サーボモーターを初期化
     servo.init();
@@ -20,30 +21,31 @@ void setup()
 void loop()
 {
     static uint16_t loop_count = 0;
+    logger.debug(F("Loop count:"), loop_count);
 
     // カウンターが 10 の倍数のとき
     if (loop_count % 10 == 0) {
-        print(F("Move Up!"));
+        logger.info(F("Move Up!"));
         // 1度から180度まで 30度ずつ回転
-        for (uint8_t angle = 1; angle <= 180; angle += 30) {
+        for (uint8_t angle = 0; angle <= 180; angle += 30) {
             // サーボモーターを指定した角度に回転
-            servo.rotateTo(angle);
+            servo.rotateTo(angle);  // 0度のときは1度になる
             delay(100);
             // サーボモーターの角度を取得してシリアルモニタに表示
-            print(F("angle:"), servo.read());
+            logger.info(F("Angle:"), servo.read(), F("[deg]"));
             delay(500);
         }
     }
 
     // カウンターが 10 の倍数 + 5 のとき
     if (loop_count % 10 == 5) {
-        print(F("Move Down!"));
+        logger.info(F("Move Down!"));
         // 180度から1度まで 1度ずつ回転
         for (uint8_t angle = 180; angle > 0; --angle) {
             // サーボモーターを指定した角度に回転
             servo.rotateTo(angle);
             // サーボモーターの角度を取得してシリアルモニタに表示
-            print(F("angle:"), servo.read());
+            logger.debug(F("Angle:"), servo.read(), F("[deg]"));
             delay(10);
         }
     }

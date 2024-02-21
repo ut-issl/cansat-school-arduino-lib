@@ -8,8 +8,8 @@ ServoMotor servo{PIN_SERVO};
 
 void setup()
 {
-    // シリアル通信 (Arduino-PC) を初期化
-    Computer::init(9600);
+    // ロガーを初期化
+    logger.enableComputer();
 
     // サーボモーターを初期化
     servo.init();
@@ -21,25 +21,26 @@ void loop()
 {
     // サーボモーターを1度に回転
     // 角度は1度から180度まで指定できる
+    // 1度未満の角度を指定すると1度に，180度より大きな角度を指定すると180度になる
     servo.rotateTo(1);
     // 500ms 待つ
     delay(500);
     // サーボモーターの角度を取得してシリアルモニタに表示
-    print(servo.read(), "deg");
+    logger.info(servo.read(), "[deg]");
 
     // サーボモーターを90度に回転
     servo.rotateTo(90);
     // 500ms 待つ
     delay(500);
     // サーボモーターの角度を取得してシリアルモニタに表示
-    print(servo.read(), "deg");
+    logger.info(servo.read(), "[deg]");
 
     // サーボモーターを180度に回転
     servo.rotateTo(180);
     // 500ms 待つ
     delay(500);
     // サーボモーターの角度を取得してシリアルモニタに表示
-    print(servo.read(), "deg");
+    logger.info(servo.read(), "[deg]");
 
     // 1s 待つ
     delay(1000);
