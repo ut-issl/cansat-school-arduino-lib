@@ -29,7 +29,10 @@ namespace Device
     {
         File file = SD.open(file_name, FILE_WRITE);
         if (!file) {
-            Utility::print(F("[SDCard] Failed to open file"));
+            float sec = float(millis()) / 1000.0;
+            char buffer[9];
+            dtostrf(sec, 7, 2, buffer);
+            Utility::print(String(buffer), F("[ERROR]"), F("[SDCard] Failed to open file"));
             return;
         }
 

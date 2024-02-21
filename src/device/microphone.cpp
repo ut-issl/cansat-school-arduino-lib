@@ -1,6 +1,6 @@
 #include "microphone.hpp"
 
-#include "../utility/printer.hpp"
+#include "../utility/logger.hpp"
 
 namespace Device
 {
@@ -12,11 +12,11 @@ namespace Device
 
     void Microphone::init()
     {
-        Utility::print(F("[Microphone] Initializing..."));
+        Utility::logger.info(F("[Microphone] Initializing..."));
 
         pinMode(output_pin_, INPUT);
 
-        Utility::print(F("[Microphone] Initialized"));
+        Utility::logger.info(F("[Microphone] Initialized"));
     }
 
     int Microphone::read()

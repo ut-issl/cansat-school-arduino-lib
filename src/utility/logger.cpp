@@ -32,7 +32,7 @@ namespace Utility
 
     String Logger::timestamp_() const
     {
-        double sec = float(millis()) / 1000.0;
+        float sec = float(millis()) / 1000.0;
         char buffer[9];
         dtostrf(sec, 7, 2, buffer);
         return String(buffer);

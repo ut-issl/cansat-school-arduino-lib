@@ -1,13 +1,13 @@
 #include "gps_receiver.hpp"
 
-#include "../utility/printer.hpp"
+#include "../utility/logger.hpp"
 
 namespace Device
 {
 
     void GPS_t::print() const
     {
-        Utility::print(F("Time:"), time, F("Latitude:"), lat, F("Longitude:"), lon, F("Altitude:"), alt);
+        Utility::logger.info(F("Time:"), time, F("Latitude:"), lat, F("Longitude:"), lon, F("Altitude:"), alt);
     }
 
     GPSReceiver::GPSReceiver(uint8_t tx_pin)
@@ -17,14 +17,14 @@ namespace Device
 
     void GPSReceiver::init()
     {
-        Utility::print(F("[GPSReceiver] Initializing..."));
+        Utility::logger.info(F("[GPSReceiver] Initializing..."));
 
         serial_.begin(9600);
         while (!serial_) {
         }
         delay(1000);
 
-        Utility::print(F("[GPSReceiver] Initialized"));
+        Utility::logger.info(F("[GPSReceiver] Initialized"));
     }
 
     GPS_t GPSReceiver::read()

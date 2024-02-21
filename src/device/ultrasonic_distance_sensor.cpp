@@ -1,6 +1,6 @@
 #include "ultrasonic_distance_sensor.hpp"
 
-#include "../utility/printer.hpp"
+#include "../utility/logger.hpp"
 
 namespace Device
 {
@@ -17,12 +17,12 @@ namespace Device
 
     void UltrasonicDistanceSensor::init()
     {
-        Utility::print(F("[UltrasonicDistanceSensor] Initializing..."));
+        Utility::logger.info(F("[UltrasonicDistanceSensor] Initializing..."));
 
         pinMode(trigger_pin_, OUTPUT);
         pinMode(echo_pin_, INPUT);
 
-        Utility::print(F("[UltrasonicDistanceSensor] Initialized"));
+        Utility::logger.info(F("[UltrasonicDistanceSensor] Initialized"));
     }
 
     float UltrasonicDistanceSensor::read()
@@ -44,19 +44,19 @@ namespace Device
     void UltrasonicDistanceSensor::setMinRange(const float& min_range)
     {
         min_range_ = min_range;
-        Utility::print(F("[UltrasonicDistanceSensor] Set min range to"), min_range_, F("mm"));
+        Utility::logger.info(F("[UltrasonicDistanceSensor] Set min range to"), min_range_, F("mm"));
     }
 
     void UltrasonicDistanceSensor::setMaxRange(const float& max_range)
     {
         max_range_ = max_range;
-        Utility::print(F("[UltrasonicDistanceSensor] Set max range to"), max_range_, F("mm"));
+        Utility::logger.info(F("[UltrasonicDistanceSensor] Set max range to"), max_range_, F("mm"));
     }
 
     void UltrasonicDistanceSensor::setTemperature(const float& temperature)
     {
         sound_speed_ = 0.020068 * sqrt(temperature + 273.15);
-        Utility::print(F("[UltrasonicDistanceSensor] Update sound speed to"), sound_speed_, F("m/s"));
+        Utility::logger.info(F("[UltrasonicDistanceSensor] Update sound speed to"), sound_speed_, F("m/s"));
     }
 
 }  // namespace Device

@@ -1,6 +1,6 @@
 #include "servo_motor.hpp"
 
-#include "../utility/printer.hpp"
+#include "../utility/logger.hpp"
 
 namespace Device
 {
@@ -17,13 +17,13 @@ namespace Device
 
     void ServoMotor::init()
     {
-        Utility::print(F("[ServoMotor] Initializing..."));
+        Utility::logger.info(F("[ServoMotor] Initializing..."));
 
         servo_.attach(input_pin_);
         delay(1000);
         this->rotateTo(1);
 
-        Utility::print(F("[ServoMotor] Initialized"));
+        Utility::logger.info(F("[ServoMotor] Initialized"));
     }
 
     void ServoMotor::rotateTo(int angle)

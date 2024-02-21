@@ -1,6 +1,6 @@
 #include "imu.hpp"
 
-#include "../utility/printer.hpp"
+#include "../utility/logger.hpp"
 
 // BMX055 加速度センサのI2Cアドレス
 #define IMU_ADDR_ACCL 0x19  // (JP1,JP2,JP3 = Openの時)
@@ -14,14 +14,12 @@ namespace Device
 
     void coordinate::print() const
     {
-        Utility::print("(", x, ",", y, ",", z, ")");
+        Utility::logger.info("(", x, ",", y, ",", z, ")");
     }
 
     void IMU_t::print() const
     {
-        Utility::print("Acc: (", acc.x, ",", acc.y, ",", acc.z, ")");
-        Utility::print("Gyro: (", gyro.x, ",", gyro.y, ",", gyro.z, ")");
-        Utility::print("Mag: (", mag.x, ",", mag.y, ",", mag.z, ")");
+        Utility::logger.info("Acc: (", acc.x, ",", acc.y, ",", acc.z, "), Gyro: (", gyro.x, ",", gyro.y, ",", gyro.z, "), Mag: (", mag.x, ",", mag.y, ",", mag.z, ")");
     }
 
     IMU::IMU()
@@ -31,7 +29,7 @@ namespace Device
 
     void IMU::init()
     {
-        Utility::print(F("[IMU] Initializing..."));
+        Utility::logger.info(F("[IMU] Initializing..."));
 
         Wire.beginTransmission(IMU_ADDR_ACCL);
         Wire.write(0x0F);  // Select PMU_Range register
@@ -105,7 +103,7 @@ namespace Device
         Wire.endTransmission();
         delay(100);
 
-        Utility::print(F("[IMU] Initialized"));
+        Utility::logger.info(F("[IMU] Initialized"));
     }
 
     IMU_t IMU::read()
@@ -221,37 +219,37 @@ namespace Device
     void IMU::setAccelOffset(const coordinate& offset)
     {
         accel_offset_ = offset;
-        Utility::print(F("[IMU] Accel offset set to"), accel_offset_.x, accel_offset_.y, accel_offset_.z);
+        Utility::logger.info(F("[IMU] Accel offset set to ("), accel_offset_.x, ",", accel_offset_.y, ",", accel_offset_.z, ")");
     }
 
     void IMU::setAccelOffset(float x, float y, float z)
     {
         accel_offset_ = {x, y, z};
-        Utility::print(F("[IMU] Accel offset set to"), accel_offset_.x, accel_offset_.y, accel_offset_.z);
+        Utility::logger.info(F("[IMU] Accel offset set to ("), accel_offset_.x, ",", accel_offset_.y, ",", accel_offset_.z, ")");
     }
 
     void IMU::setGyroOffset(const coordinate& offset)
     {
         gyro_offset_ = offset;
-        Utility::print(F("[IMU] Gyro offset set to"), gyro_offset_.x, gyro_offset_.y, gyro_offset_.z);
+        Utility::logger.info(F("[IMU] Gyro offset set to ("), gyro_offset_.x, ",", gyro_offset_.y, ",", gyro_offset_.z, ")");
     }
 
     void IMU::setGyroOffset(float x, float y, float z)
     {
         gyro_offset_ = {x, y, z};
-        Utility::print(F("[IMU] Gyro offset set to"), gyro_offset_.x, gyro_offset_.y, gyro_offset_.z);
+        Utility::logger.info(F("[IMU] Gyro offset set to ("), gyro_offset_.x, ",", gyro_offset_.y, ",", gyro_offset_.z, ")");
     }
 
     void IMU::setMagOffset(const coordinate& offset)
     {
         mag_offset_ = offset;
-        Utility::print(F("[IMU] Mag offset set to"), mag_offset_.x, mag_offset_.y, mag_offset_.z);
+        Utility::logger.info(F("[IMU] Mag offset set to ("), mag_offset_.x, ",", mag_offset_.y, ",", mag_offset_.z, ")");
     }
 
     void IMU::setMagOffset(float x, float y, float z)
     {
         mag_offset_ = {x, y, z};
-        Utility::print(F("[IMU] Mag offset set to"), mag_offset_.x, mag_offset_.y, mag_offset_.z);
+        Utility::logger.info(F("[IMU] Mag offset set to ("), mag_offset_.x, ",", mag_offset_.y, ",", mag_offset_.z, ")");
     }
 
 }  // namespace Device
