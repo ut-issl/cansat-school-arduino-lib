@@ -7,7 +7,7 @@ namespace Device
 
     void GPS_t::print() const
     {
-        Utility::logger.info(F("Time:"), time, F("Latitude:"), lat, F("Longitude:"), lon, F("Altitude:"), alt);
+        Utility::logger.info(F("Time:"), time, F("[s], Latitude:"), lat, F("[°], Longitude:"), lon, F("[°], Altitude:"), alt, F("[m]"));
     }
 
     GPSReceiver::GPSReceiver(uint8_t tx_pin)
@@ -57,7 +57,7 @@ namespace Device
 
             if (list[0] == "$GPGGA") {
                 if (list[6] != "0") {
-                    gps.time = millis() / 1000;
+                    gps.time = float(millis()) / 1000.0;
                     gps.lat = ConvertNMEAToDDf_(list[2].toFloat());
                     gps.lon = ConvertNMEAToDDf_(list[4].toFloat());
                     gps.alt = list[9].toFloat();

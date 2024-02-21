@@ -9,10 +9,10 @@ namespace Device
 
     struct GPS_t
     {
-        float lat;
-        float lon;
-        float alt;
-        uint16_t time;
+        float lat;   // [°]
+        float lon;   // [°]
+        float alt;   // [m]
+        float time;  // [s]
 
         void print() const;
     };

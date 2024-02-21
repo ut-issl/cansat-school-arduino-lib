@@ -9,9 +9,9 @@ namespace Device
 
     struct BaroThermoHygrometer_t
     {
-        float pressure;
-        float temperature;
-        float humidity;
+        float pressure;     // [hPa]
+        float temperature;  // [°C]
+        float humidity;     // [%]
 
         void print() const;
     };
