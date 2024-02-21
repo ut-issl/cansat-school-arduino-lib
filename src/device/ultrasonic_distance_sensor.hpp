@@ -14,20 +14,20 @@ namespace Device
         ~UltrasonicDistanceSensor() = default;
 
         void init();
-        float read() override;  // distance [mm]
+        float read() override;  // distance [m]
 
-        void setMinRange(const float& min_range);
-        void setMaxRange(const float& max_range);
+        void setMinRange(const float& min_range);  // [m]
+        void setMaxRange(const float& max_range);  // [m]
 
-        void setTemperature(const float& temperature);
+        void setTemperature(const float& temperature);  // [°C]
 
       private:
 
         uint8_t trigger_pin_;
         uint8_t echo_pin_;
 
-        float min_range_ = 40;    // [mm]
-        float max_range_ = 4000;  // [mm]
+        float min_range_ = 0.04;  // [m]
+        float max_range_ = 4.0;   // [m]
 
         float sound_speed_ = 0.342;  // [mm/µs]
     };
