@@ -24,7 +24,7 @@ void setup()
 void loop()
 {
     // マイクの値を取得してシリアルモニタに表示
-    print(microphone.read());
+    logger.info(microphone.read());
 
     // マイクの値を取得して変数に代入したい場合
     // int mic_value = microphone.read();

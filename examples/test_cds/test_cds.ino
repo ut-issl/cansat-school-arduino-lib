@@ -25,7 +25,7 @@ void loop()
 {
     // 光センサの値を取得してシリアルモニタに表示
     // 明るさが 0 ~ 100 の値で表示される
-    print(cds.read());
+    logger.info(cds.read());
 
     // 光センサの値を取得して変数に代入したい場合
     // int cds_value = cds.read();  // 明るさ [0 ~ 100]
