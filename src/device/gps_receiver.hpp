@@ -9,10 +9,10 @@ namespace Device
 
     struct GPS_t
     {
-        float lat;
-        float lon;
-        float alt;
-        uint16_t time;
+        float lat;   // [°]
+        float lon;   // [°]
+        float alt;   // [m]
+        float time;  // [s]
 
         void print() const;
     };
@@ -21,7 +21,7 @@ namespace Device
     {
       public:
 
-        GPSReceiver(const uint8_t& tx_pin);
+        GPSReceiver(uint8_t tx_pin);
         ~GPSReceiver() = default;
 
         void init();

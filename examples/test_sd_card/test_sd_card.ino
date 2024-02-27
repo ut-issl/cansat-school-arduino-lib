@@ -8,8 +8,8 @@ String file_name = "log.txt";
 
 void setup()
 {
-    // シリアル通信 (Arduino-PC) を初期化
-    Computer::init(9600);
+    // ロガーを初期化
+    logger.enableComputer();
 
     // SDカードを初期化
     SDCard::init(PIN_SD_SS);

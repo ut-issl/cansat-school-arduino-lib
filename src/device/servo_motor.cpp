@@ -1,11 +1,11 @@
 #include "servo_motor.hpp"
 
-#include "computer.hpp"
+#include "../utility/logger.hpp"
 
 namespace Device
 {
 
-    ServoMotor::ServoMotor(const uint8_t& input_pin)
+    ServoMotor::ServoMotor(uint8_t input_pin)
         : input_pin_(input_pin)
     {
     }
@@ -17,21 +17,23 @@ namespace Device
 
     void ServoMotor::init()
     {
-        print(F("[ServoMotor] Initializing..."));
+        Utility::logger.info(F("[ServoMotor] Initializing..."));
 
         servo_.attach(input_pin_);
         delay(1000);
         this->rotateTo(1);
 
-        print(F("[ServoMotor] Initialized"));
+        Utility::logger.info(F("[ServoMotor] Initialized"));
     }
 
     void ServoMotor::rotateTo(int angle)
     {
         if (angle < 1) {
+            Utility::logger.warning(F("[ServoMotor] Desired angle"), angle, F("deg is less than 1. Set to 1"));
             angle = 1;
         }
         if (angle > 180) {
+            Utility::logger.warning(F("[ServoMotor] Desired angle"), angle, F("deg is greater than 180. Set to 180"));
             angle = 180;
         }
         servo_.write(angle);

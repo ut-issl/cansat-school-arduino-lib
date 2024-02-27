@@ -9,7 +9,7 @@ namespace Device
     {
       public:
 
-        CdS(const uint8_t& output_pin);
+        CdS(uint8_t output_pin);
         ~CdS() = default;
 
         void init();

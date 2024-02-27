@@ -1,30 +1,30 @@
 #include "gps_receiver.hpp"
 
-#include "computer.hpp"
+#include "../utility/logger.hpp"
 
 namespace Device
 {
 
     void GPS_t::print() const
     {
-        Computer::print(F("Time:"), time, F("Latitude:"), lat, F("Longitude:"), lon, F("Altitude:"), alt);
+        Utility::logger.info(F("Time:"), time, F("[s], Latitude:"), lat, F("[°], Longitude:"), lon, F("[°], Altitude:"), alt, F("[m]"));
     }
 
-    GPSReceiver::GPSReceiver(const uint8_t& tx_pin)
+    GPSReceiver::GPSReceiver(uint8_t tx_pin)
         : serial_{tx_pin, 0}, is_available_{false}
     {
     }
 
     void GPSReceiver::init()
     {
-        print(F("[GPSReceiver] Initializing..."));
+        Utility::logger.info(F("[GPSReceiver] Initializing..."));
 
         serial_.begin(9600);
         while (!serial_) {
         }
         delay(1000);
 
-        print(F("[GPSReceiver] Initialized"));
+        Utility::logger.info(F("[GPSReceiver] Initialized"));
     }
 
     GPS_t GPSReceiver::read()
@@ -57,7 +57,7 @@ namespace Device
 
             if (list[0] == "$GPGGA") {
                 if (list[6] != "0") {
-                    gps.time = millis() / 1000;
+                    gps.time = float(millis()) / 1000.0;
                     gps.lat = ConvertNMEAToDDf_(list[2].toFloat());
                     gps.lon = ConvertNMEAToDDf_(list[4].toFloat());
                     gps.alt = list[9].toFloat();

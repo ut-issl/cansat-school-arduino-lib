@@ -1,12 +1,12 @@
 #include "camera.hpp"
 
-#include "computer.hpp"
+#include "../utility/logger.hpp"
 #include "sd_card.hpp"
 
 namespace Device
 {
 
-    Camera::Camera(const uint8_t& ss_pin)
+    Camera::Camera(uint8_t ss_pin)
         : ss_pin_{ss_pin}, cam_{OV2640, ss_pin}
     {
     }
@@ -18,7 +18,7 @@ namespace Device
 
     void Camera::init()
     {
-        print(F("[Camera] Initializing..."));
+        Utility::logger.info(F("[Camera] Initializing..."));
 
         pinMode(ss_pin_, OUTPUT);
         digitalWrite(ss_pin_, HIGH);
@@ -34,9 +34,9 @@ namespace Device
             cam_.write_reg(ARDUCHIP_TEST1, 0x55);
             uint8_t temp = cam_.read_reg(ARDUCHIP_TEST1);
             if (temp != 0x55) {
-                print(F("[Camera] SPI interface error"));
+                Utility::logger.error(F("[Camera] SPI interface error"));
             } else {
-                print(F("[Camera] SPI interface OK"));
+                Utility::logger.debug(F("[Camera] SPI interface OK"));
                 break;
             }
             delay(1000);
@@ -49,9 +49,9 @@ namespace Device
             cam_.rdSensorReg8_8(OV2640_CHIPID_HIGH, &vid);
             cam_.rdSensorReg8_8(OV2640_CHIPID_LOW, &pid);
             if ((vid != 0x26) && ((pid != 0x41) || (pid != 0x42))) {
-                print(F("[Camera] Cannot find camera module"));
+                Utility::logger.error(F("[Camera] Cannot find camera module"));
             } else {
-                print(F("[Camera] Camera module detected"));
+                Utility::logger.debug(F("[Camera] Camera module detected"));
                 break;
             }
             delay(1000);
@@ -65,10 +65,10 @@ namespace Device
 
         cam_.CS_HIGH();  // これしておかないとSDにかけない
 
-        print(F("[Camera] Initialized"));
+        Utility::logger.info(F("[Camera] Initialized"));
     }
 
-    bool Camera::takePictureAndSaveAs(const String& file_name, unsigned long time_out_ms)
+    bool Camera::takePictureAndSaveAs(const String& file_name, unsigned long timeout_ms)
     {
         char str[8];
         byte buf[256];
@@ -87,31 +87,31 @@ namespace Device
         // Capture
         unsigned long start_time = millis();
         cam_.start_capture();
-        print(F("[Camera] Start capture"));
+        Utility::logger.info(F("[Camera] Start capture"));
         while (!cam_.get_bit(ARDUCHIP_TRIG, CAP_DONE_MASK)) {
-            if ((millis() - start_time) > time_out_ms) {
-                print(F("[Camera] Capture timeout"));
+            if ((millis() - start_time) > timeout_ms) {
+                Utility::logger.error(F("[Camera] Capture timeout"));
                 return false;
             }
         }
-        print(F("[Camera] Capture done"));
+        Utility::logger.info(F("[Camera] Capture done"));
 
         length = cam_.read_fifo_length();
         if (length >= MAX_FIFO_SIZE)  // 384K
         {
-            print(F("[Camera] Image size is too large"));
+            Utility::logger.error(F("[Camera] Image size is too large"));
             return false;
         }
         if (length == 0)  // 0 kb
         {
-            print(F("[Camera] Image size is 0"));
+            Utility::logger.error(F("[Camera] Image size is 0"));
             return false;
         }
 
         // Save the image to SD card
         outFile = SD.open(file_name, O_WRITE | O_CREAT | O_TRUNC);
         if (!outFile) {
-            print(F("[Camera] Failed to open file"), file_name);
+            Utility::logger.error(F("[Camera] Failed to open file"), file_name);
             return false;
         }
         cam_.CS_LOW();
@@ -128,7 +128,7 @@ namespace Device
                 outFile.write(buf, i);
                 // Close the file
                 outFile.close();
-                print(F("[Camera] Image saved as"), file_name);
+                Utility::logger.info(F("[Camera] Image saved as"), file_name);
                 is_header = false;
                 i = 0;
             }

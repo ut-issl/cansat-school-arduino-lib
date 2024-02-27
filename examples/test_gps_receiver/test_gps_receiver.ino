@@ -8,8 +8,8 @@ GPSReceiver gps{PIN_GPS_TX};
 
 void setup()
 {
-    // シリアル通信 (Arduino-PC) を初期化
-    Computer::init(9600);
+    // ロガーを初期化
+    logger.enableComputer();
 
     // GPS を初期化
     gps.init();
@@ -23,10 +23,10 @@ void loop()
     gps.read().print();
 
     // GPS から取得した情報を変数に代入したい場合
-    // float latitude = gps.read().lat;   // 緯度
-    // float longitude = gps.read().lon;  // 経度
-    // float altitude = gps.read().alt;   // 高度
-    // uint16_t time = gps.read().time;   // 最後にデータを取得した時間
+    // float latitude = gps.read().lat;   // 緯度 [°]
+    // float longitude = gps.read().lon;  // 経度 [°]
+    // float altitude = gps.read().alt;   // 高度 [m]
+    // uint16_t time = gps.read().time;   // 最後にデータを取得した時間 [s]
 
     // 1s 待つ
     delay(1000);

@@ -1,22 +1,22 @@
 #include "microphone.hpp"
 
-#include "computer.hpp"
+#include "../utility/logger.hpp"
 
 namespace Device
 {
 
-    Microphone::Microphone(const uint8_t& output_pin)
+    Microphone::Microphone(uint8_t output_pin)
         : output_pin_(output_pin)
     {
     }
 
     void Microphone::init()
     {
-        print(F("[Microphone] Initializing..."));
+        Utility::logger.info(F("[Microphone] Initializing..."));
 
         pinMode(output_pin_, INPUT);
 
-        print(F("[Microphone] Initialized"));
+        Utility::logger.info(F("[Microphone] Initialized"));
     }
 
     int Microphone::read()

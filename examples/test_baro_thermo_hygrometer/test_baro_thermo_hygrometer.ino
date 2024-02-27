@@ -5,8 +5,8 @@ BaroThermoHygrometer bth;
 
 void setup()
 {
-    // シリアル通信 (Arduino-PC) を初期化
-    Computer::init(9600);
+    // ロガーを初期化
+    logger.enableComputer();
 
     // Wire (Arduino-I2C) を初期化
     // 気圧・温湿度計は I2C を使用するためこれが必要
@@ -24,13 +24,13 @@ void loop()
     bth.read().print();
 
     // 気圧を取得して変数に代入したい場合
-    // float pressure = bth.read().pressure;
+    // float pressure = bth.read().pressure;  // [hPa]
 
     // 温度を取得して変数に代入したい場合
-    // float temperature = bth.read().temperature;
+    // float temperature = bth.read().temperature;  // [°C]
 
     // 湿度を取得して変数に代入したい場合
-    // float humidity = bth.read().humidity;
+    // float humidity = bth.read().humidity;  // [%]
 
     // 1s 待つ
     delay(1000);

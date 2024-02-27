@@ -3,36 +3,23 @@
 #include <SPI.h>
 #include <Wire.h>
 
-#include "computer.hpp"
+#include "../utility/logger.hpp"
 
-namespace Device::SDCard
+namespace Device
 {
 
-    void init(const uint8_t& ss_pin)
+    bool SDCard::init(uint8_t ss_pin)
     {
-        print(F("[SDCard] Initializing..."));
+        Utility::logger.info(F("[SDCard] Initializing..."));
 
         pinMode(ss_pin, OUTPUT);
         if (!SD.begin(ss_pin)) {
-            Computer::print(F("[SDCard] Failed to initialize"));
-            while (true) {
-                // do nothing
-            }
+            Utility::logger.error(F("[SDCard] Failed to initialize"));
+            return false;
         }
-        Computer::print(F("[SDCard] Initialized"));
+
+        Utility::logger.info(F("[SDCard] Initialized"));
+        return true;
     }
 
-    void write(const String& file_name, const String& data)
-    {
-        File file = SD.open(file_name, FILE_WRITE);
-
-        if (file) {
-            file.println(data);
-            file.close();
-        } else {
-            Computer::print(F("[SDCard] Failed to open file"));
-        }
-        file.close();
-    }
-
-}  // namespace Device::SDCard
+}  // namespace Device
