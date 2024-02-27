@@ -30,6 +30,7 @@ namespace Utility
         }
         log_file_name_ = log_file_name;
         use_sd_card_ = true;
+        Device::SDCard::write(log_file_name_, F("============================================================"));
         this->info(F("[Logger] Start logging to"), log_file_name_, F("on SD card"));
         return true;
     }
