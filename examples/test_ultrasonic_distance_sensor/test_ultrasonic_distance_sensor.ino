@@ -1,11 +1,11 @@
 #include <CanSatSchool.h>
 
 // 超音波距離センサーのピンを指定
-#define PIN_TRIGGER 9
-#define PIN_ECHO 17
+#define PIN_USD_TRIGGER 9
+#define PIN_USD_ECHO 17
 
 // 超音波距離センサーを宣言
-UltrasonicDistanceSensor distance_sensor{PIN_TRIGGER, PIN_ECHO};
+UltrasonicDistanceSensor distance_sensor{PIN_USD_TRIGGER, PIN_USD_ECHO};
 
 void setup()
 {
