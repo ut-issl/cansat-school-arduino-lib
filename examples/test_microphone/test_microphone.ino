@@ -4,7 +4,7 @@
 #define PIN_MIC A2
 
 // マイクを宣言
-Microphone microphone(PIN_MIC);
+Microphone microphone{PIN_MIC};
 
 void setup()
 {

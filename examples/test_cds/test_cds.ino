@@ -4,7 +4,7 @@
 #define PIN_CDS A1
 
 // 光センサを宣言
-CdS cds(PIN_CDS);
+CdS cds{PIN_CDS};
 
 void setup()
 {
