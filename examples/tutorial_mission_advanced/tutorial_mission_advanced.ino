@@ -19,11 +19,6 @@ void setup()
     logger.enableSDCard(file_name, PIN_SD_SS);
     // logger.setDebug();
 
-    // Wire (Arduino-I2C) を初期化
-    Wire.begin();
-    // SPI を初期化
-    SPI.begin();
-
     initDevice();
 }
 

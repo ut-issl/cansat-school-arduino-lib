@@ -2,7 +2,7 @@
 
 #include <CanSatSchool.h>
 
-#include "port_config.h"
+#include "port_config.hpp"
 
 // 気圧・温湿度計を宣言
 BaroThermoHygrometer bth;
@@ -19,6 +19,11 @@ Camera camera{PIN_CAMERA_SS};
 
 void initDevice()
 {
+    // Wire (Arduino-I2C) を初期化
+    Wire.begin();
+    // SPI を初期化
+    SPI.begin();
+
     // 気圧・温湿度計を初期化
     bth.init();
     // 光センサを初期化
