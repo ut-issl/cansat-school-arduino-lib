@@ -22,4 +22,15 @@ namespace Device
         return true;
     }
 
+    void SDCard::write_impl(File& file, BaroThermoHygrometer_t last)
+    {
+        file.print(F("Pressure: "));
+        file.print(last.pressure);
+        file.print(F(" [hPa], Temperature: "));
+        file.print(last.temperature);
+        file.print(F(" [°C], Humidity: "));
+        file.print(last.humidity);
+        file.println(F(" [%]"));
+    }
+
 }  // namespace Device

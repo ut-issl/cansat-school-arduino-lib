@@ -21,7 +21,7 @@ void setup()
 void loop()
 {
     // 気圧、温度、湿度を取得してシリアルモニタに表示
-    bth.read().print();
+    logger.info(bth.read());
 
     // 気圧を取得して変数に代入したい場合
     // float pressure = bth.read().pressure;  // [hPa]

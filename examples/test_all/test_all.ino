@@ -63,7 +63,7 @@ void setup()
 void loop()
 {
     // 気圧・温湿度計の値を取得して記録
-    bth.read().print();
+    logger.info(F("[BaroThermoHygrometer]"), bth.read());
     delay(500);
 
     // 光センサの値を取得して記録
