@@ -13,8 +13,6 @@ namespace Device
         float lon;   // [°]
         float alt;   // [m]
         float time;  // [s]
-
-        void print() const;
     };
 
     class GPSReceiver : public SensorBase<GPS_t>

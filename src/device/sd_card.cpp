@@ -33,4 +33,17 @@ namespace Device
         file.println(F(" [%]"));
     }
 
+    void SDCard::write_impl(File& file, GPS_t last)
+    {
+        file.print(F("Time: "));
+        file.print(last.time);
+        file.print(F(" [s], Latitude: "));
+        file.print(last.lat);
+        file.print(F(" [°], Longitude: "));
+        file.print(last.lon);
+        file.print(F(" [°], Altitude: "));
+        file.print(last.alt);
+        file.println(F(" [m]"));
+    }
+
 }  // namespace Device

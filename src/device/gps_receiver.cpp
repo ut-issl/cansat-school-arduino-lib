@@ -5,11 +5,6 @@
 namespace Device
 {
 
-    void GPS_t::print() const
-    {
-        Utility::logger.info(F("Time:"), time, F("[s], Latitude:"), lat, F("[°], Longitude:"), lon, F("[°], Altitude:"), alt, F("[m]"));
-    }
-
     GPSReceiver::GPSReceiver(uint8_t tx_pin)
         : serial_{tx_pin, 0}, is_available_{false}
     {

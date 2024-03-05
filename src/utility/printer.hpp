@@ -3,6 +3,7 @@
 #include <Arduino.h>
 
 #include "../device/baro_thermo_hygrometer.hpp"
+#include "../device/gps_receiver.hpp"
 
 namespace Utility
 {
@@ -25,6 +26,10 @@ namespace Utility
         static void print_impl(Device::BaroThermoHygrometer_t last);
         template <class... Args>
         static void print_impl(Device::BaroThermoHygrometer_t head, Args... args);
+
+        static void print_impl(Device::GPS_t last);
+        template <class... Args>
+        static void print_impl(Device::GPS_t head, Args... args);
     };
 
     template <class... Args>
@@ -68,7 +73,35 @@ namespace Utility
         Serial.print(head.temperature);
         Serial.print(F(" [°C], Humidity: "));
         Serial.print(head.humidity);
-        Serial.println(F(" [%] "));
+        Serial.print(F(" [%] "));
+        print_impl(args...);
+    }
+
+    inline void Printer::print_impl(Device::GPS_t last)
+    {
+        Serial.print(F("Time: "));
+        Serial.print(last.time);
+        Serial.print(F(" [s], Latitude: "));
+        Serial.print(last.lat);
+        Serial.print(F(" [°], Longitude: "));
+        Serial.print(last.lon);
+        Serial.print(F(" [°], Altitude: "));
+        Serial.print(last.alt);
+        Serial.println(F(" [m]"));
+    }
+
+    template <class... Args>
+    void Printer::print_impl(Device::GPS_t head, Args... args)
+    {
+        Serial.print(F("Time: "));
+        Serial.print(head.time);
+        Serial.print(F(" [s], Latitude: "));
+        Serial.print(head.lat);
+        Serial.print(F(" [°], Longitude: "));
+        Serial.print(head.lon);
+        Serial.print(F(" [°], Altitude: "));
+        Serial.print(head.alt);
+        Serial.print(F(" [m] "));
         print_impl(args...);
     }
 

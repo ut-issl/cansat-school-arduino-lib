@@ -50,14 +50,14 @@ void commonTask()
 
     // 高度を取得する
     height = calculateHeightFromPressure(bth.read().pressure);
-    logger.debug(F("Height:"), height, F("[m]"));
+    logger.info(F("Height:"), height, F("[m]"));
 
     // 光センサの値を取得する
     light = cds.read();
     logger.debug(F("Light:"), light);
 
     // 位置を取得する
-    gps.read().print();
+    logger.info(gps.read());
 }
 
 void loadingTask()

@@ -26,6 +26,10 @@ namespace Device
         static void write_impl(File& file, BaroThermoHygrometer_t last);
         template <class... Args>
         static void write_impl(File& file, BaroThermoHygrometer_t head, Args... args);
+
+        static void write_impl(File& file, GPS_t last);
+        template <class... Args>
+        static void write_impl(File& file, GPS_t head, Args... args);
     };
 
     template <class... Args>
@@ -68,7 +72,22 @@ namespace Device
         file.print(head.temperature);
         file.print(F(" [°C], Humidity: "));
         file.print(head.humidity);
-        file.println(F(" [%] "));
+        file.print(F(" [%] "));
+        write_impl(file, args...);
+    }
+
+    template <class... Args>
+    void SDCard::write_impl(File& file, GPS_t head, Args... args)
+    {
+        file.print(F("Time: "));
+        file.print(head.time);
+        file.print(F(" [s], Latitude: "));
+        file.print(head.lat);
+        file.print(F(" [°], Longitude: "));
+        file.print(head.lon);
+        file.print(F(" [°], Altitude: "));
+        file.print(head.alt);
+        file.print(F(" [m] "));
         write_impl(file, args...);
     }
 

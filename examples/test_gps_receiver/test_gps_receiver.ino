@@ -20,7 +20,7 @@ void setup()
 void loop()
 {
     // GPS から取得した情報をシリアルモニタに表示
-    gps.read().print();
+    logger.info(gps.read());
 
     // GPS から取得した情報を変数に代入したい場合
     // float latitude = gps.read().lat;   // 緯度 [°]

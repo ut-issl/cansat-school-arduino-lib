@@ -83,7 +83,7 @@ void loop()
     delay(500);
 
     // GPS から取得した情報を記録
-    gps.read().print();
+    logger.info(F("[GPSReceiver]"), gps.read());
     delay(500);
 
     // サーボモーターを動かす
