@@ -66,14 +66,14 @@ void setup()
 
     // CanSatをロケットに搭載するまで待つ
     logger.info("Waiting for loading to the rocket");
-    int cds_threshold = 30;  // 搭載されたと判断する明るさの閾値
+    int light_threshold = 30;  // 搭載されたと判断する明るさの閾値
     while (true) {
         // 光センサの値を読む
-        int cds_value = cds.read();
-        logger.debug(F("CdS:"), cds_value);
+        int light = cds.read();
+        logger.debug(F("Light:"), light);
 
         // 明るさが閾値を下回ったら搭載されたと判断
-        if (cds_value < cds_threshold) {
+        if (light < light_threshold) {
             logger.info(F("Loaded"));
             break;
         }
@@ -86,14 +86,14 @@ void loop()
 {
     // =========== 放出されるまで待つ ===========
     logger.info(F("Waiting for release"));
-    int cds_threshold = 60;  // 放出されたと判断する明るさの閾値
+    int light_threshold = 60;  // 放出されたと判断する明るさの閾値
     while (true) {
         // 光センサの値を読む
-        int cds_value = cds.read();
-        logger.debug(F("CdS:"), cds_value);
+        int light = cds.read();
+        logger.debug(F("Light:"), light);
 
         // 明るさが閾値を超えたら放出されたと判断
-        if (cds_value > cds_threshold) {
+        if (light > light_threshold) {
             logger.info(F("Released!"));
             break;
         }
@@ -135,8 +135,8 @@ void loop()
         // 高度を記録する
         logger.info(F("Height:"), height, F("[m]"));
 
-        // 高度が 0m 以下になったら着陸したと判断
-        if (height <= 0) {
+        // 高度が 50cm 以下になったら着陸したと判断
+        if (height <= 0.5) {
             logger.info(F("Landed!"));
             break;
         }
