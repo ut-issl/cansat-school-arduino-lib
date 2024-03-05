@@ -56,6 +56,8 @@ void setup()
 
     // カメラを初期化
     camera.init();
+
+    delay(500);
 }
 
 void loop()
