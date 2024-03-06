@@ -71,7 +71,7 @@ void loop()
     delay(500);
 
     // 超音波距離センサーの値を取得して記録
-    logger.info(F("Distance:"), distance_sensor.read(), "[m]");
+    logger.info(F("[UltrasonicDistanceSensor]"), distance_sensor.read(), "[m]");
     delay(500);
 
     // IMU の値を取得して記録
@@ -79,7 +79,7 @@ void loop()
     delay(500);
 
     // マイクの値を取得して記録
-    logger.info(microphone.read());
+    logger.info(F("[Microphone]"), microphone.read());
     delay(500);
 
     // GPS から取得した情報を記録
