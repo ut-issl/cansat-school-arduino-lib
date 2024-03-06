@@ -10,11 +10,6 @@
 namespace Device
 {
 
-    void BaroThermoHygrometer_t::print() const
-    {
-        Utility::logger.info(F("Pressure:"), pressure, F("[hPa], Temperature:"), temperature, F("[°C], Humidity:"), humidity, F("[%]"));
-    }
-
     BaroThermoHygrometer::BaroThermoHygrometer()
     {
     }

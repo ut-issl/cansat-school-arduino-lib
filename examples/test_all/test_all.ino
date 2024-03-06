@@ -63,7 +63,7 @@ void setup()
 void loop()
 {
     // 気圧・温湿度計の値を取得して記録
-    bth.read().print();
+    logger.info(F("[BaroThermoHygrometer]"), bth.read());
     delay(500);
 
     // 光センサの値を取得して記録
@@ -75,7 +75,7 @@ void loop()
     delay(500);
 
     // IMU の値を取得して記録
-    imu.read().print();
+    logger.info(F("[IMU]"), imu.read());
     delay(500);
 
     // マイクの値を取得して記録
@@ -83,7 +83,7 @@ void loop()
     delay(500);
 
     // GPS から取得した情報を記録
-    gps.read().print();
+    logger.info(F("[GPSReceiver]"), gps.read());
     delay(500);
 
     // サーボモーターを動かす
