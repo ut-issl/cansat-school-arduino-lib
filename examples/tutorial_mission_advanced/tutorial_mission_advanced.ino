@@ -27,10 +27,13 @@ void loop()
     static unsigned long last_time_ms = 0;
     unsigned long current_time_ms = millis();
 
-    // 2000ms ごとに commonTask を実行する
+    // commonTask は常に実行する
+    commonTask();
+
+    // 2000ms ごとに commonTaskLowFreq を実行する
     unsigned long interval_ms = 2000;
     if (current_time_ms - last_time_ms > interval_ms) {
-        commonTask();
+        commonTaskLowFreq();
         last_time_ms = current_time_ms;
     }
 

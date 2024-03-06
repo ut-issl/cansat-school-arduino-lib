@@ -27,9 +27,20 @@ float calculateHeightFromPressure(float pressure)
     return altitude - altitude_at_ground;
 }
 
+// 高頻度で実行する共通のタスク
 void commonTask()
 {
-    // 現在のフェーズを表示する
+    // 高度を取得する
+    height = calculateHeightFromPressure(bth.read().pressure);
+
+    // 光センサの値を取得する
+    light = cds.read();
+}
+
+// 低頻度で実行する定期タスク
+void commonTaskLowFreq()
+{
+    // 現在のフェーズを記録する
     switch (phase) {
         case LOADING:
             logger.debug(F("Phase: LOADING"));
@@ -48,18 +59,17 @@ void commonTask()
             break;
     }
 
-    // 高度を取得する
-    height = calculateHeightFromPressure(bth.read().pressure);
+    // 高度を記録する
     logger.info(F("Height:"), height, F("[m]"));
 
-    // 光センサの値を取得する
-    light = cds.read();
+    // 光センサの値を記録する
     logger.debug(F("Light:"), light);
 
-    // 位置を取得する
+    // 位置を取得して記録する
     logger.info(gps.read());
 }
 
+// LOADING フェーズのタスク
 void loadingTask()
 {
     int light_threshold = 30;    // 搭載されたと判断する明るさの閾値
@@ -78,6 +88,7 @@ void loadingTask()
     }
 }
 
+// LAUNCHING フェーズのタスク
 void launchingTask()
 {
     int light_threshold = 60;  // 放出されたと判断する明るさの閾値
@@ -89,6 +100,7 @@ void launchingTask()
     }
 }
 
+// DESCENDING フェーズのタスク
 void descendingTask()
 {
     float lid_open_height = 30;      // 蓋を開ける高度 [m]
@@ -114,6 +126,7 @@ void descendingTask()
     }
 }
 
+// LANDED フェーズのタスク
 void landedTask()
 {
     // 10秒ごとに3回カメラで写真を撮る
