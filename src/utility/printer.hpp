@@ -4,6 +4,7 @@
 
 #include "../device/baro_thermo_hygrometer.hpp"
 #include "../device/gps_receiver.hpp"
+#include "../device/imu.hpp"
 
 namespace Utility
 {
@@ -23,6 +24,10 @@ namespace Utility
         template <class Head, class... Args>
         static void print_impl(Head head, Args... args);
 
+        static void print_impl(Device::coordinate last);
+        template <class... Args>
+        static void print_impl(Device::coordinate head, Args... args);
+
         static void print_impl(Device::BaroThermoHygrometer_t last);
         template <class... Args>
         static void print_impl(Device::BaroThermoHygrometer_t head, Args... args);
@@ -30,6 +35,10 @@ namespace Utility
         static void print_impl(Device::GPS_t last);
         template <class... Args>
         static void print_impl(Device::GPS_t head, Args... args);
+
+        static void print_impl(Device::IMU_t last);
+        template <class... Args>
+        static void print_impl(Device::IMU_t head, Args... args);
     };
 
     template <class... Args>
@@ -50,6 +59,30 @@ namespace Utility
     {
         Serial.print(head);
         Serial.print(F(" "));
+        print_impl(args...);
+    }
+
+    inline void Printer::print_impl(Device::coordinate last)
+    {
+        Serial.print(F("("));
+        Serial.print(last.x);
+        Serial.print(F(", "));
+        Serial.print(last.y);
+        Serial.print(F(", "));
+        Serial.print(last.z);
+        Serial.println(F(")"));
+    }
+
+    template <class... Args>
+    void Printer::print_impl(Device::coordinate head, Args... args)
+    {
+        Serial.print(F("("));
+        Serial.print(head.x);
+        Serial.print(F(", "));
+        Serial.print(head.y);
+        Serial.print(F(", "));
+        Serial.print(head.z);
+        Serial.print(F(") "));
         print_impl(args...);
     }
 
@@ -102,6 +135,54 @@ namespace Utility
         Serial.print(F(" [°], Altitude: "));
         Serial.print(head.alt);
         Serial.print(F(" [m] "));
+        print_impl(args...);
+    }
+
+    inline void Printer::print_impl(Device::IMU_t last)
+    {
+        Serial.print(F("Acc: ("));
+        Serial.print(last.acc.x);
+        Serial.print(F(", "));
+        Serial.print(last.acc.y);
+        Serial.print(F(", "));
+        Serial.print(last.acc.z);
+        Serial.print(F("), Gyro: ("));
+        Serial.print(last.gyro.x);
+        Serial.print(F(", "));
+        Serial.print(last.gyro.y);
+        Serial.print(F(", "));
+        Serial.print(last.gyro.z);
+        Serial.print(F("), Mag: ("));
+        Serial.print(last.mag.x);
+        Serial.print(F(", "));
+        Serial.print(last.mag.y);
+        Serial.print(F(", "));
+        Serial.print(last.mag.z);
+        Serial.println(F(")"));
+    }
+
+    template <class... Args>
+    void Printer::print_impl(Device::IMU_t head, Args... args)
+    {
+        Serial.print(F("Acc: ("));
+        Serial.print(head.acc.x);
+        Serial.print(F(", "));
+        Serial.print(head.acc.y);
+        Serial.print(F(", "));
+        Serial.print(head.acc.z);
+        Serial.print(F("), Gyro: ("));
+        Serial.print(head.gyro.x);
+        Serial.print(F(", "));
+        Serial.print(head.gyro.y);
+        Serial.print(F(", "));
+        Serial.print(head.gyro.z);
+        Serial.print(F("), Mag: ("));
+        Serial.print(head.mag.x);
+        Serial.print(F(", "));
+        Serial.print(head.mag.y);
+        Serial.print(F(", "));
+        Serial.print(head.mag.z);
+        Serial.print(F(") "));
         print_impl(args...);
     }
 

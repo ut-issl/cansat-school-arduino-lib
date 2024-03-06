@@ -22,6 +22,17 @@ namespace Device
         return true;
     }
 
+    void SDCard::write_impl(File& file, coordinate last)
+    {
+        file.print(F("("));
+        file.print(last.x);
+        file.print(F(", "));
+        file.print(last.y);
+        file.print(F(", "));
+        file.print(last.z);
+        file.println(F(")"));
+    }
+
     void SDCard::write_impl(File& file, BaroThermoHygrometer_t last)
     {
         file.print(F("Pressure: "));
@@ -44,6 +55,29 @@ namespace Device
         file.print(F(" [°], Altitude: "));
         file.print(last.alt);
         file.println(F(" [m]"));
+    }
+
+    void SDCard::write_impl(File& file, IMU_t last)
+    {
+        file.print(F("Acc: ("));
+        file.print(last.acc.x);
+        file.print(F(", "));
+        file.print(last.acc.y);
+        file.print(F(", "));
+        file.print(last.acc.z);
+        file.print(F("), Gyro: ("));
+        file.print(last.gyro.x);
+        file.print(F(", "));
+        file.print(last.gyro.y);
+        file.print(F(", "));
+        file.print(last.gyro.z);
+        file.print(F("), Mag: ("));
+        file.print(last.mag.x);
+        file.print(F(", "));
+        file.print(last.mag.y);
+        file.print(F(", "));
+        file.print(last.mag.z);
+        file.println(F(")"));
     }
 
 }  // namespace Device

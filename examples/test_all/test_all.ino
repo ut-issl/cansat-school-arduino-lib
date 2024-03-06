@@ -75,7 +75,7 @@ void loop()
     delay(500);
 
     // IMU の値を取得して記録
-    imu.read().print();
+    logger.info(F("[IMU]"), imu.read());
     delay(500);
 
     // マイクの値を取得して記録

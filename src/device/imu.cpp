@@ -12,16 +12,6 @@
 namespace Device
 {
 
-    void coordinate::print() const
-    {
-        Utility::logger.info("(", x, ",", y, ",", z, ")");
-    }
-
-    void IMU_t::print() const
-    {
-        Utility::logger.info("Acc: (", acc.x, ",", acc.y, ",", acc.z, "), Gyro: (", gyro.x, ",", gyro.y, ",", gyro.z, "), Mag: (", mag.x, ",", mag.y, ",", mag.z, ")");
-    }
-
     IMU::IMU()
         : accel_offset_({0.0, 0.0, 0.0}), gyro_offset_({0.0, 0.0, 0.0}), mag_offset_({0.0, 0.0, 0.0})
     {

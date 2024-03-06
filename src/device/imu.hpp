@@ -12,8 +12,6 @@ namespace Device
         float x;
         float y;
         float z;
-
-        void print() const;
     };
 
     struct IMU_t
@@ -21,8 +19,6 @@ namespace Device
         coordinate acc;
         coordinate gyro;
         coordinate mag;
-
-        void print() const;
     };
 
     class IMU : public SensorBase<IMU_t>

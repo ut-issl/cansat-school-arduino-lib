@@ -21,7 +21,7 @@ void setup()
 void loop()
 {
     // IMU の値を取得してシリアルモニタに表示
-    imu.read().print();
+    logger.info(imu.read());
 
     // 1s 待つ
     delay(1000);
@@ -32,9 +32,9 @@ void loop()
     // auto mag = imu.readMag();    // 地磁気
 
     // 取得した値をシリアルモニタに表示
-    // print(F("Accel:"), acc.x, F(","), acc.y, F(","), acc.z);
-    // print(F("Gyro:"), gyro.x, F(","), gyro.y, F(","), gyro.z);
-    // print(F("Mag:"), mag.x, F(","), mag.y, F(","), mag.z);
+    // logger.info(F("Acc:"), acc);
+    // logger.info(F("Gyro:"), gyro);
+    // logger.info(F("Mag:"), mag);
 
     // 1s 待つ
     delay(1000);
