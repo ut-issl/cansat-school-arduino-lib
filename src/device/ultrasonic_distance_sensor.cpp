@@ -44,19 +44,19 @@ namespace Device
     void UltrasonicDistanceSensor::setMinRange(const float& min_range)
     {
         min_range_ = min_range;
-        Utility::logger.info(F("[UltrasonicDistanceSensor] Set min range to"), min_range_, F("m"));
+        Utility::logger.info(F("[UltrasonicDistanceSensor] Set min range to"), min_range_, F("[m]"));
     }
 
     void UltrasonicDistanceSensor::setMaxRange(const float& max_range)
     {
         max_range_ = max_range;
-        Utility::logger.info(F("[UltrasonicDistanceSensor] Set max range to"), max_range_, F("m"));
+        Utility::logger.info(F("[UltrasonicDistanceSensor] Set max range to"), max_range_, F("[m]"));
     }
 
     void UltrasonicDistanceSensor::setTemperature(const float& temperature)
     {
         sound_speed_ = 0.020068 * sqrt(temperature + 273.15);
-        Utility::logger.info(F("[UltrasonicDistanceSensor] Update sound speed to"), sound_speed_ * 1e3, F("m/s"));
+        Utility::logger.info(F("[UltrasonicDistanceSensor] Update sound speed to"), sound_speed_ * 1e3, F("[m/s]"));
     }
 
 }  // namespace Device

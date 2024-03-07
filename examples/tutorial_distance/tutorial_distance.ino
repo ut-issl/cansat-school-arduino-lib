@@ -29,7 +29,7 @@ void setup()
 
     // 温度を取得
     float temperature = bth.read().temperature;
-    logger.info("Temperature:", temperature, "°C");
+    logger.info("Temperature:", temperature, "[°C]");
     // 超音波センサーに温度を設定
     distance_sensor.setTemperature(temperature);
 
