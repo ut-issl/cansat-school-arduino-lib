@@ -56,10 +56,10 @@ void setup()
     logger.info("Calibrating sensors...");
     // 地表の気圧を取得する
     float pressure_at_ground = bth.read().pressure;
-    logger.info("Pressure at ground:", pressure_at_ground, "hPa");
+    logger.info("Pressure at ground:", pressure_at_ground, "[hPa]");
     // 地表の海抜高度を計算する
     altitude_at_ground = calculateAltitudeFromPressure(pressure_at_ground);
-    logger.info("Altitude at ground:", altitude_at_ground, "m");
+    logger.info("Altitude at ground:", altitude_at_ground, "[m]");
     logger.info("Calibration completed!");
 
     delay(10000);

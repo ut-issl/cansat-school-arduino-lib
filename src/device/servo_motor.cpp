@@ -29,11 +29,11 @@ namespace Device
     void ServoMotor::rotateTo(int angle)
     {
         if (angle < 1) {
-            Utility::logger.warning(F("[ServoMotor] Desired angle"), angle, F("deg is less than 1. Set to 1"));
+            Utility::logger.warning(F("[ServoMotor] Desired angle"), angle, F("[deg] is less than 1. Set to 1"));
             angle = 1;
         }
         if (angle > 180) {
-            Utility::logger.warning(F("[ServoMotor] Desired angle"), angle, F("deg is greater than 180. Set to 180"));
+            Utility::logger.warning(F("[ServoMotor] Desired angle"), angle, F("[deg] is greater than 180. Set to 180"));
             angle = 180;
         }
         servo_.write(angle);
