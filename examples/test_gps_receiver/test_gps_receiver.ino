@@ -23,10 +23,11 @@ void loop()
     logger.info(gps.read());
 
     // GPS から取得した情報を変数に代入したい場合
-    // float latitude = gps.read().lat;   // 緯度 [°]
-    // float longitude = gps.read().lon;  // 経度 [°]
-    // float altitude = gps.read().alt;   // 高度 [m]
-    // uint16_t time = gps.read().time;   // 最後にデータを取得した時間 [s]
+    // auto gps_data = gps.read();
+    // float latitude = gps_data.lat;   // 緯度 [°]
+    // float longitude = gps_data.lon;  // 経度 [°]
+    // float altitude = gps_data.alt;   // 高度 [m]
+    // uint16_t time = gps_data.time;   // 最後にデータを取得した時間 [s]
 
     // 1s 待つ
     delay(1000);
