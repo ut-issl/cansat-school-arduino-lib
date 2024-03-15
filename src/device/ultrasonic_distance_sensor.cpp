@@ -37,6 +37,7 @@ namespace Device
         if (distance > min_range_ && distance < max_range_) {
             return distance;
         } else {
+            Utility::logger.warning(F("[UltrasonicDistanceSensor] Out of range, return -1 [m]"));
             return -1;
         }
     }
