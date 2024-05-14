@@ -9,10 +9,12 @@
     "authors": {
         "name": "ut-issl",
         "url": "https://github.com/ut-issl",
+        "email": "cansat@space.t.u-tokyo.ac.jp",
         "maintainer": true
     },
-    "version": "1.0",
-    "license": "",
+    "version": "2024.1.2",
+    "license": "MIT",
+    "homepage": "https://cansat-school.ut-issl.com/",
     "frameworks": "arduino",
     "platforms": "*"
 }
