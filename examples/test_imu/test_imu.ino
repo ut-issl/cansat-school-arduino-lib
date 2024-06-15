@@ -23,16 +23,10 @@ void loop()
     // IMU の値を取得してシリアルモニタに表示
     logger.info(imu.read());
 
-    // 1s 待つ
-    delay(1000);
-
     // IMU の値を取得して変数に代入したい場合
     // auto acc = imu.readAccel();  // 加速度
     // auto gyro = imu.readGyro();  // 角速度
     // auto mag = imu.readMag();    // 地磁気
-
-    // 取得した値をシリアルプロッタに表示したい場合
-    // print(F("Acc:"), acc, F(" Gyro:"), gyro, F("Mag:"), mag);
 
     // 1s 待つ
     delay(1000);

@@ -8,8 +8,8 @@ Microphone microphone{PIN_MIC};
 
 void setup()
 {
-    // ロガーを初期化
-    logger.enableComputer();
+    // シリアル通信 (Arduino-PC) を初期化
+    Computer::init(9600);
 
     // Wire (Arduino-I2C) を初期化
     // マイクは I2C を使用するためこれが必要
@@ -23,11 +23,11 @@ void setup()
 
 void loop()
 {
-    // マイクの値を取得してシリアルモニタに表示
-    logger.info(microphone.read());
+    // マイクの値を取得して変数に代入
+    int mic_value = microphone.read();
 
-    // マイクの値を取得して変数に代入したい場合
-    // int mic_value = microphone.read();
+    // 取得した値をシリアルプロッタに表示
+    print(mic_value);
 
     // 1s 待つ
     delay(1000);

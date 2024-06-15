@@ -32,9 +32,6 @@ void loop()
     // 湿度を取得して変数に代入したい場合
     // float humidity = bth.read().humidity;  // [%]
 
-    // 取得した値をシリアルプロッタに表示したい場合
-    // print(F("Pressure:"), pressure, F(" Temperature:"), temperature, F("Humidity:"), humidity);
-
     // 1s 待つ
     delay(1000);
 }

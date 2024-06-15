@@ -8,8 +8,8 @@ CdS cds{PIN_CDS};
 
 void setup()
 {
-    // ロガーを初期化
-    logger.enableComputer();
+    // シリアル通信 (Arduino-PC) を初期化
+    Computer::init(9600);
 
     // Wire (Arduino-I2C) を初期化
     // 光センサは I2C を使用するためこれが必要
@@ -23,12 +23,11 @@ void setup()
 
 void loop()
 {
-    // 光センサの値を取得してシリアルモニタに表示
-    // 明るさが 0 ~ 100 の値で表示される
-    logger.info(cds.read());
+    // 光センサの値を取得して変数に代入
+    int cds_value = cds.read();  // 明るさ [0 ~ 100]
 
-    // 光センサの値を取得して変数に代入したい場合
-    // int cds_value = cds.read();  // 明るさ [0 ~ 100]
+    // 取得した値をシリアルプロッタに表示
+    print(cds_value);
 
     // 1s 待つ
     delay(1000);
