@@ -17,9 +17,12 @@ void setup()
     // ロガーを初期化
     String file_name = "log.txt";  // 記録するファイル名
     logger.enableSDCard(file_name, PIN_SD_SS);
-    // logger.setDebug();
+    // logger.enableComputer();  // PCとのシリアル通信を有効にする
+    // logger.setDebug();  // デバッグモードを有効にする
 
     initDevice();
+
+    calibratePressureSensor();
 }
 
 void loop()

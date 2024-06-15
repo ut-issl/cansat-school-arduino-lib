@@ -27,6 +27,33 @@ float calculateHeightFromPressure(float pressure)
     return altitude - altitude_at_ground;
 }
 
+void calibratePressureSensor()
+{
+    // 安定するまで待つ
+    logger.info(F("Waiting for stabilization..."));
+    unsigned long wait_start = millis();
+    while (millis() - wait_start < 10000)
+    {
+        // 気圧を取得する
+        float pressure = bth.read().pressure;
+        logger.debug(F("Pressure:"), pressure, F("[hPa]"));
+        delay(1000);
+    }
+
+    logger.info(F("Calibrating pressure sensor..."));
+
+    // 地表の気圧を取得する
+    float pressure_at_ground = bth.read().pressure;
+    logger.info(F("Pressure at ground:"), pressure_at_ground, F("[hPa]"));
+
+    // 地表の海抜高度を計算する
+    float pressure_at_sea_level = 1013.250;  // 海抜 0m での大気圧 [hPa]
+    altitude_at_ground = (pressure_at_sea_level - pressure_at_ground) * 10;  // ざっくり 10m 上昇すると 1hPa 下がるとする
+    logger.info(F("Altitude at ground:"), altitude_at_ground, F("[m]"));
+
+    logger.info(F("Calibration completed"));
+}
+
 // 高頻度で実行する共通のタスク
 void commonTask()
 {
@@ -113,9 +140,9 @@ void descendingTask()
         lid_opened = true;
     }
 
-    // 10回以上連続で高度が 50cm 未満になったら着陸したと判断
+    // 10回以上連続で高度が 1.5m 未満になったら着陸したと判断
     static int count = 0;
-    if (height <= 0.5) {
+    if (height <= 1.5) {
         count++;
     } else {
         count = 0;
