@@ -12,6 +12,7 @@ void setup()
 {
     // ロガーを初期化
     logger.enableComputer();
+    // logger.enableSDCard(file_name);  // ロガーを使用してもよい
 
     // Wire (Arduino-I2C) を初期化
     // カメラは I2C を使用するためこれが必要
