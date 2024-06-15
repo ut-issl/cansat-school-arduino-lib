@@ -30,6 +30,9 @@ void loop()
     // 光センサの値を取得して変数に代入したい場合
     // int cds_value = cds.read();  // 明るさ [0 ~ 100]
 
+    // 取得した値をシリアルプロッタに表示したい場合
+    // print(F("CdS:"), cds_value);
+
     // 1s 待つ
     delay(1000);
 }

@@ -29,6 +29,9 @@ void loop()
     // マイクの値を取得して変数に代入したい場合
     // int mic_value = microphone.read();
 
+    // 取得した値をシリアルプロッタに表示したい場合
+    // print(F("Microphone:"), mic_value);
+
     // 1s 待つ
     delay(1000);
 }

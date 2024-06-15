@@ -31,10 +31,8 @@ void loop()
     // auto gyro = imu.readGyro();  // 角速度
     // auto mag = imu.readMag();    // 地磁気
 
-    // 取得した値をシリアルモニタに表示
-    // logger.info(F("Acc:"), acc);
-    // logger.info(F("Gyro:"), gyro);
-    // logger.info(F("Mag:"), mag);
+    // 取得した値をシリアルプロッタに表示したい場合
+    // print(F("Acc:"), acc, F(" Gyro:"), gyro, F("Mag:"), mag);
 
     // 1s 待つ
     delay(1000);

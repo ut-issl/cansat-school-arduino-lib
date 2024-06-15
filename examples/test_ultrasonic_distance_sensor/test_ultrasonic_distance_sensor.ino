@@ -30,6 +30,9 @@ void loop()
     // 超音波距離センサーの値を取得して変数に代入したい場合
     // float distance = distance_sensor.read();  // [m]
 
+    // 取得した値をシリアルプロッタに表示したい場合
+    // print(F("Distance:"), distance);
+
     // 1s 待つ
     delay(1000);
 }
