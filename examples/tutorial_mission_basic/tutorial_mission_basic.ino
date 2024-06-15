@@ -34,7 +34,8 @@ void setup()
     // ロガーを初期化
     String file_name = "log.txt";  // 記録するファイル名
     logger.enableSDCard(file_name);
-    // logger.setDebug();
+    // logger.enableComputer();  // PCとのシリアル通信を有効にする
+    // logger.setDebug();  // デバッグモードを有効にする
 
     // Wire (Arduino-I2C) を初期化
     Wire.begin();
@@ -50,22 +51,30 @@ void setup()
     servo.rotateTo(1);
 
     // 安定するまで待つ
-    delay(10000);
+    logger.info(F("Waiting for stabilization..."));
+    unsigned long wait_start = millis();
+    while (millis() - wait_start < 10000)
+    {
+        // 気圧を取得する
+        float pressure = bth.read().pressure;
+        logger.debug(F("Pressure:"), pressure, F("[hPa]"));
+        delay(1000);
+    }
 
     // キャリブレーションのためにセンサーを地表に置いておく
-    logger.info("Calibrating sensors...");
+    logger.info(F("Calibrating pressure sensor..."));
     // 地表の気圧を取得する
     float pressure_at_ground = bth.read().pressure;
-    logger.info("Pressure at ground:", pressure_at_ground, "[hPa]");
+    logger.info(F("Pressure at ground:"), pressure_at_ground, F("[hPa]"));
     // 地表の海抜高度を計算する
     altitude_at_ground = calculateAltitudeFromPressure(pressure_at_ground);
-    logger.info("Altitude at ground:", altitude_at_ground, "[m]");
-    logger.info("Calibration completed!");
+    logger.info(F("Altitude at ground:"), altitude_at_ground, F("[m]"));
+    logger.info(F("Calibration completed"));
 
     delay(10000);
 
     // CanSatをロケットに搭載するまで待つ
-    logger.info("Waiting for loading to the rocket");
+    logger.info(F("Waiting for loading to the rocket"));
     int light_threshold = 30;  // 搭載されたと判断する明るさの閾値
     while (true) {
         // 光センサの値を読む
@@ -135,8 +144,8 @@ void loop()
         // 高度を記録する
         logger.info(F("Height:"), height, F("[m]"));
 
-        // 高度が 50cm 以下になったら着陸したと判断
-        if (height <= 0.5) {
+        // 高度が 1.5m 以下になったら着陸したと判断
+        if (height <= 1.5) {
             logger.info(F("Landed!"));
             break;
         }
