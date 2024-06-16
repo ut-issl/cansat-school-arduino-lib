@@ -15,12 +15,14 @@ namespace Device
         Camera(uint8_t ss_pin);
         ~Camera();
 
-        void init();
+        void init(unsigned long timeout_ms = 10000);
         bool takePictureAndSaveAs(const String& file_name, unsigned long timeout_ms = 1000);
 
         void setSize(uint8_t size);
 
       private:
+
+        bool is_available_ = false;
 
         uint8_t ss_pin_;
 
