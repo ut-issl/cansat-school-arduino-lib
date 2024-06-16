@@ -9,10 +9,12 @@ namespace Device
 
     struct GPS_t
     {
-        float lat;   // [°]
-        float lon;   // [°]
-        float alt;   // [m]
-        float time;  // [s]
+        float lat;           // [°]
+        float lon;           // [°]
+        float alt;           // [m]
+        float time;          // [s]
+        float arduino_time;  // [s]
+        int visible_sat;     // 可視衛星の数
     };
 
     class GPSReceiver : public SensorBase<GPS_t>
@@ -29,6 +31,7 @@ namespace Device
       private:
 
         static float ConvertNMEAToDDf_(float val);
+        static float parseTime_(const String& time_str, float time_zone = 9.0f);
 
         SoftwareSerial serial_;
 

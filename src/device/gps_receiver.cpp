@@ -32,7 +32,7 @@ namespace Device
             uint16_t len = line.length();
             String str = "";
 
-            const uint8_t MAX_LIST = 12;
+            const uint8_t MAX_LIST = 15;
             String list[MAX_LIST];
             for (i = 0; i < MAX_LIST; i++) {
                 list[i] = "";
@@ -52,10 +52,12 @@ namespace Device
 
             if (list[0] == "$GPGGA") {
                 if (list[6] != "0") {
-                    gps.time = float(millis()) / 1000.0;
+                    gps.time = parseTime_(list[1]);
                     gps.lat = ConvertNMEAToDDf_(list[2].toFloat());
                     gps.lon = ConvertNMEAToDDf_(list[4].toFloat());
                     gps.alt = list[9].toFloat();
+                    gps.visible_sat = list[7].toInt();
+                    gps.arduino_time = float(millis()) / 1000.0;
                     is_available_ = true;
                 } else {
                     is_available_ = false;
@@ -75,6 +77,23 @@ namespace Device
         int deg = val / 100;
         float min = val - deg * 100;
         return deg + min / 60.0;
+    }
+
+    float GPSReceiver::parseTime_(const String& time_str, float time_zone)
+    {
+        if (time_str.length() < 6) {
+            return -1.0;
+        }
+        float hours = time_str.substring(0, 2).toFloat();
+        float minutes = time_str.substring(2, 4).toFloat();
+        float seconds = time_str.substring(4).toFloat();
+
+        hours += time_zone;
+        if (hours >= 24) {
+            hours -= 24;
+        }
+
+        return hours * 3600 + minutes * 60 + seconds;
     }
 
 }  // namespace Device
