@@ -120,7 +120,8 @@ namespace Utility
         Serial.print(last.lon);
         Serial.print(F(" [°], Altitude: "));
         Serial.print(last.alt);
-        Serial.println(F(" [m]"));
+        Serial.print(F(" [m], Visible Satellites: "));
+        Serial.println(last.visible_sat);
     }
 
     template <class... Args>
@@ -134,7 +135,9 @@ namespace Utility
         Serial.print(head.lon);
         Serial.print(F(" [°], Altitude: "));
         Serial.print(head.alt);
-        Serial.print(F(" [m] "));
+        Serial.print(F(" [m], Visible Satellites: "));
+        Serial.print(head.visible_sat);
+        Serial.print(F(" "));
         print_impl(args...);
     }
 
