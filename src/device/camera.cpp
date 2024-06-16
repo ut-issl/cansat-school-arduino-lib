@@ -16,7 +16,7 @@ namespace Device
         digitalWrite(ss_pin_, LOW);
     }
 
-    void Camera::init()
+    void Camera::init(unsigned long timeout_ms)
     {
         Utility::logger.info(F("[Camera] Initializing..."));
 
@@ -29,7 +29,8 @@ namespace Device
         cam_.write_reg(0x07, 0x00);
         delay(100);
 
-        while (true) {
+        unsigned long start_time = millis();
+        while (millis() - start_time < timeout_ms) {
             // Check if the ArduCAM SPI bus is OK
             cam_.write_reg(ARDUCHIP_TEST1, 0x55);
             uint8_t temp = cam_.read_reg(ARDUCHIP_TEST1);
@@ -42,7 +43,8 @@ namespace Device
             delay(1000);
         }
 
-        while (true) {
+        start_time = millis();
+        while (millis() - start_time < timeout_ms) {
             // Check if the camera module type is OV2640
             uint8_t vid, pid;
             cam_.wrSensorReg8_8(0xff, 0x01);
@@ -52,6 +54,7 @@ namespace Device
                 Utility::logger.error(F("[Camera] Cannot find camera module"));
             } else {
                 Utility::logger.debug(F("[Camera] Camera module detected"));
+                is_available_ = true;
                 break;
             }
             delay(1000);
@@ -65,11 +68,20 @@ namespace Device
 
         cam_.CS_HIGH();  // これしておかないとSDにかけない
 
-        Utility::logger.info(F("[Camera] Initialized"));
+        if (is_available_) {
+            Utility::logger.info(F("[Camera] Initialized"));
+        } else {
+            Utility::logger.error(F("[Camera] Failed to initialize"));
+        }
     }
 
     bool Camera::takePictureAndSaveAs(const String& file_name, unsigned long timeout_ms)
     {
+        if (!is_available_) {
+            Utility::logger.warning(F("[Camera] Camera is not available, skipping taking picture"));
+            return false;
+        }
+
         char str[8];
         byte buf[256];
         static int i = 0;
