@@ -7,6 +7,7 @@
 #include "dc_motor.hpp"
 #include "gps_receiver.hpp"
 #include "imu.hpp"
+#include "led.hpp"
 #include "microphone.hpp"
 #include "sd_card.hpp"
 #include "servo_motor.hpp"
