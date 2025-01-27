@@ -18,13 +18,11 @@ namespace Device
     void Led::on()
     {
         digitalWrite(output_pin_, HIGH);
-        Utility::logger.info(F("[LED] ON"));
     }
 
     void Led::off()
     {
         digitalWrite(output_pin_, LOW);
-        Utility::logger.info(F("[LED] OFF"));
     }
 
 
