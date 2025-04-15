@@ -23,7 +23,7 @@ namespace Device
     {
         uint32_t sum = 0;
         for (int8_t i = 0; i < sampling_num_; ++i) {
-            uint32_t value = abs(analogRead(output_pin_) - median_);
+            uint32_t value = abs((int32_t)(analogRead(output_pin_) - median_));
             sum += value;
         }
         uint8_t average = sum / sampling_num_;
