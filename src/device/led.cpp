@@ -25,5 +25,12 @@ namespace Device
         digitalWrite(output_pin_, LOW);
     }
 
+    void Led::blink(uint16_t duration_ms)
+    {
+        on();
+        delay(duration_ms);
+        off();
+    }
+
 
 }  // namespace Device
