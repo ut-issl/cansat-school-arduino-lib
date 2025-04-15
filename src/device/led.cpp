@@ -12,6 +12,8 @@ namespace Device
 
     void Led::init()
     {
+        pinMode(output_pin_, OUTPUT);
+        off();  // Ensure the LED is off at startup
         Utility::logger.info(F("[LED] Initialized"));
     }
 
