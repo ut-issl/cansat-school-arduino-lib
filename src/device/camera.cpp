@@ -121,7 +121,7 @@ namespace Device
         }
 
         // Save the image to SD card
-        outFile = SD.open(file_name, O_WRITE | O_CREAT | O_TRUNC);
+        outFile = SD.open(file_name.c_str(), O_WRITE | O_CREAT | O_TRUNC);
         if (!outFile) {
             Utility::logger.error(F("[Camera] Failed to open file"), file_name);
             return false;
