@@ -43,7 +43,7 @@ namespace Device
     template <class... Args>
     void SDCard::write(const String& file_name, Args... args)
     {
-        File file = SD.open(file_name, FILE_WRITE);
+        File file = SD.open(file_name.c_str(), FILE_WRITE);
         if (!file) {
             float sec = float(millis()) / 1000.0;
             char buffer[9];
