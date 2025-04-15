@@ -15,6 +15,7 @@ namespace Device
         void init();
         void on();
         void off();
+        void blink(uint16_t duration_ms);
 
       private:
 
