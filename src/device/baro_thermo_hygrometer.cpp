@@ -14,41 +14,43 @@ namespace Device
     {
     }
 
-    void BaroThermoHygrometer::init()
+    void BaroThermoHygrometer::init(TwoWire* i2c)
     {
         Utility::logger.info(F("[BaroThermoHygrometer] Initializing..."));
 
+        i2c_ = i2c;
+        
         // BME280の設定
         // BME280動作設定
-        Wire.beginTransmission(BME280_ADDR_);
-        Wire.write(CONFIG_);  // 動作設定
-        Wire.write(0x00);     // 「単発測定」，「フィルタなし」，「SPI 4線式」
-        Wire.endTransmission();
+        i2c_->beginTransmission(BME280_ADDR_);
+        i2c_->write(CONFIG_);  // 動作設定
+        i2c_->write(0x00);     // 「単発測定」，「フィルタなし」，「SPI 4線式」
+        i2c_->endTransmission();
 
         // BME280測定条件設定
-        Wire.beginTransmission(BME280_ADDR_);
-        Wire.write(CTRL_MEAS_);  // 測定条件設定
-        Wire.write(0x24);        // 「温度・気圧オーバーサンプリングx1」，「スリープモード」
-        Wire.endTransmission();
+        i2c_->beginTransmission(BME280_ADDR_);
+        i2c_->write(CTRL_MEAS_);  // 測定条件設定
+        i2c_->write(0x24);        // 「温度・気圧オーバーサンプリングx1」，「スリープモード」
+        i2c_->endTransmission();
 
         // BME280温度測定条件設定
-        Wire.beginTransmission(BME280_ADDR_);
-        Wire.write(CTRL_HUM_);  // 湿度測定条件設定
-        Wire.write(0x01);       // 「湿度オーバーサンプリングx1」
-        Wire.endTransmission();
+        i2c_->beginTransmission(BME280_ADDR_);
+        i2c_->write(CTRL_HUM_);  // 湿度測定条件設定
+        i2c_->write(0x01);       // 「湿度オーバーサンプリングx1」
+        i2c_->endTransmission();
 
         // BME280補正データ取得
-        Wire.beginTransmission(BME280_ADDR_);
-        Wire.write(0x88);  // 出力データバイトを「補正データ」のアドレスに指定
-        Wire.endTransmission();
+        i2c_->beginTransmission(BME280_ADDR_);
+        i2c_->write(0x88);  // 出力データバイトを「補正データ」のアドレスに指定
+        i2c_->endTransmission();
 
-        Wire.requestFrom(BME280_ADDR_, 26);
+        i2c_->requestFrom(BME280_ADDR_, 26);
         for (uint8_t i = 0; i < 26; i++) {
-            while (!Wire.available()) {
+            while (!i2c_->available()) {
                 Utility::logger.warning(F("[BaroThermoHygrometer] Waiting for receiving data..."));
                 delay(1000);
             }
-            buffer_[i] = Wire.read();
+            buffer_[i] = i2c_->read();
         }
 
         dig_t1_ = ((uint16_t)((buffer_[1] << 8) | buffer_[0]));
@@ -67,17 +69,17 @@ namespace Device
 
         dig_h1_ = ((uint8_t)(buffer_[25]));
 
-        Wire.beginTransmission(BME280_ADDR_);
-        Wire.write(0xE1);  // 出力データバイトを「補正データ」のアドレスに指定
-        Wire.endTransmission();
+        i2c_->beginTransmission(BME280_ADDR_);
+        i2c_->write(0xE1);  // 出力データバイトを「補正データ」のアドレスに指定
+        i2c_->endTransmission();
 
-        Wire.requestFrom(BME280_ADDR_, 7);
+        i2c_->requestFrom(BME280_ADDR_, 7);
         for (uint8_t i = 0; i < 7; i++) {
-            while (!Wire.available()) {
+            while (!i2c_->available()) {
                 Utility::logger.warning(F("[BaroThermoHygrometer] Waiting for receiving data..."));
                 delay(1000);
             }
-            buffer_[i] = Wire.read();
+            buffer_[i] = i2c_->read();
         }
 
         dig_h2_ = ((int16_t)((buffer_[1] << 8) | buffer_[0]));
@@ -99,24 +101,24 @@ namespace Device
         int32_t temp_cal;
 
         // BME280測定条件設定 (1回測定後，スリープモード)
-        Wire.beginTransmission(BME280_ADDR_);
-        Wire.write(CTRL_MEAS_);  // 測定条件設定
-        Wire.write(0x25);        // 「温度・気圧オーバーサンプリングx1」，「1回測定後，スリープモード」
-        Wire.endTransmission();
+        i2c_->beginTransmission(BME280_ADDR_);
+        i2c_->write(CTRL_MEAS_);  // 測定条件設定
+        i2c_->write(0x25);        // 「温度・気圧オーバーサンプリングx1」，「1回測定後，スリープモード」
+        i2c_->endTransmission();
         delay(1);
 
         // 測定データ取得
-        Wire.beginTransmission(BME280_ADDR_);
-        Wire.write(0xF7);  // 出力データバイトを「気圧データ」のアドレスに指定
-        Wire.endTransmission();
+        i2c_->beginTransmission(BME280_ADDR_);
+        i2c_->write(0xF7);  // 出力データバイトを「気圧データ」のアドレスに指定
+        i2c_->endTransmission();
 
-        Wire.requestFrom(BME280_ADDR_, 8);
+        i2c_->requestFrom(BME280_ADDR_, 8);
         for (uint8_t i = 0; i < 8; i++) {
-            if (!Wire.available()) {
+            if (!i2c_->available()) {
                 Utility::logger.error(F("[BaroThermoHygrometer] Cannot receive data"));
                 return data;
             }
-            buffer_[i] = Wire.read();
+            buffer_[i] = i2c_->read();
         }
 
         int32_t adc_p = ((uint32_t)buffer_[0] << 12) | ((uint32_t)buffer_[1] << 4) | ((buffer_[2] >> 4) & 0x0F);

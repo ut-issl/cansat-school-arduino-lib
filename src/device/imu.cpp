@@ -17,80 +17,82 @@ namespace Device
     {
     }
 
-    void IMU::init()
+    void IMU::init(TwoWire* i2c)
     {
         Utility::logger.info(F("[IMU] Initializing..."));
 
-        Wire.beginTransmission(IMU_ADDR_ACCL);
-        Wire.write(0x0F);  // Select PMU_Range register
-        Wire.write(0x03);  // Range = +/- 2g
-        Wire.endTransmission();
+        i2c_ = i2c;
+        
+        i2c_->beginTransmission(IMU_ADDR_ACCL);
+        i2c_->write(0x0F);  // Select PMU_Range register
+        i2c_->write(0x03);  // Range = +/- 2g
+        i2c_->endTransmission();
         delay(100);
 
-        Wire.beginTransmission(IMU_ADDR_ACCL);
-        Wire.write(0x10);  // Select PMU_BW register
-        Wire.write(0x08);  // Bandwidth = 7.81 Hz
-        Wire.endTransmission();
+        i2c_->beginTransmission(IMU_ADDR_ACCL);
+        i2c_->write(0x10);  // Select PMU_BW register
+        i2c_->write(0x08);  // Bandwidth = 7.81 Hz
+        i2c_->endTransmission();
         delay(100);
 
-        Wire.beginTransmission(IMU_ADDR_ACCL);
-        Wire.write(0x11);  // Select PMU_LPW register
-        Wire.write(0x00);  // Normal mode, Sleep duration = 0.5ms
-        Wire.endTransmission();
+        i2c_->beginTransmission(IMU_ADDR_ACCL);
+        i2c_->write(0x11);  // Select PMU_LPW register
+        i2c_->write(0x00);  // Normal mode, Sleep duration = 0.5ms
+        i2c_->endTransmission();
         delay(100);
 
-        Wire.beginTransmission(IMU_ADDR_GYRO);
-        Wire.write(0x0F);  // Select Range register
-        Wire.write(0x04);  // Full scale = +/- 125 degree/s
-        Wire.endTransmission();
+        i2c_->beginTransmission(IMU_ADDR_GYRO);
+        i2c_->write(0x0F);  // Select Range register
+        i2c_->write(0x04);  // Full scale = +/- 125 degree/s
+        i2c_->endTransmission();
         delay(100);
 
-        Wire.beginTransmission(IMU_ADDR_GYRO);
-        Wire.write(0x10);  // Select Bandwidth register
-        Wire.write(0x07);  // ODR = 100 Hz
-        Wire.endTransmission();
+        i2c_->beginTransmission(IMU_ADDR_GYRO);
+        i2c_->write(0x10);  // Select Bandwidth register
+        i2c_->write(0x07);  // ODR = 100 Hz
+        i2c_->endTransmission();
         delay(100);
 
-        Wire.beginTransmission(IMU_ADDR_GYRO);
-        Wire.write(0x11);  // Select LPM1 register
-        Wire.write(0x00);  // Normal mode, Sleep duration = 2ms
-        Wire.endTransmission();
+        i2c_->beginTransmission(IMU_ADDR_GYRO);
+        i2c_->write(0x11);  // Select LPM1 register
+        i2c_->write(0x00);  // Normal mode, Sleep duration = 2ms
+        i2c_->endTransmission();
         delay(100);
 
-        Wire.beginTransmission(IMU_ADDR_MAG);
-        Wire.write(0x4B);  // Select Mag register
-        Wire.write(0x83);  // Soft reset
-        Wire.endTransmission();
+        i2c_->beginTransmission(IMU_ADDR_MAG);
+        i2c_->write(0x4B);  // Select Mag register
+        i2c_->write(0x83);  // Soft reset
+        i2c_->endTransmission();
         delay(100);
 
-        Wire.beginTransmission(IMU_ADDR_MAG);
-        Wire.write(0x4B);  // Select Mag register
-        Wire.write(0x01);  // Soft reset
-        Wire.endTransmission();
+        i2c_->beginTransmission(IMU_ADDR_MAG);
+        i2c_->write(0x4B);  // Select Mag register
+        i2c_->write(0x01);  // Soft reset
+        i2c_->endTransmission();
         delay(100);
 
-        Wire.beginTransmission(IMU_ADDR_MAG);
-        Wire.write(0x4C);  // Select Mag register
-        Wire.write(0x00);  // Normal Mode, ODR = 10 Hz
-        Wire.endTransmission();
+        i2c_->beginTransmission(IMU_ADDR_MAG);
+        i2c_->write(0x4C);  // Select Mag register
+        i2c_->write(0x00);  // Normal Mode, ODR = 10 Hz
+        i2c_->endTransmission();
         delay(100);
 
-        Wire.beginTransmission(IMU_ADDR_MAG);
-        Wire.write(0x4E);  // Select Mag register
-        Wire.write(0x84);  // X, Y, Z-Axis enabled
-        Wire.endTransmission();
+        i2c_->beginTransmission(IMU_ADDR_MAG);
+        i2c_->write(0x4E);  // Select Mag register
+        i2c_->write(0x84);  // X, Y, Z-Axis enabled
+        i2c_->endTransmission();
         delay(100);
 
-        Wire.beginTransmission(IMU_ADDR_MAG);
-        Wire.write(0x51);  // Select Mag register
-        Wire.write(0x04);  // No. of Repetitions for X-Y Axis = 9
-        Wire.endTransmission();
+        i2c_->beginTransmission(IMU_ADDR_MAG);
+        i2c_->write(0x51);  // Select Mag register
+        i2c_->write(0x04);  // No. of Repetitions for X-Y Axis = 9
+        i2c_->endTransmission();
         delay(100);
 
-        Wire.beginTransmission(IMU_ADDR_MAG);
-        Wire.write(0x52);  // Select Mag register
-        Wire.write(0x16);  // No. of Repetitions for Z-Axis = 15
-        Wire.endTransmission();
+        i2c_->beginTransmission(IMU_ADDR_MAG);
+        i2c_->write(0x52);  // Select Mag register
+        i2c_->write(0x16);  // No. of Repetitions for Z-Axis = 15
+        i2c_->endTransmission();
         delay(100);
 
         Utility::logger.info(F("[IMU] Initialized"));
@@ -107,13 +109,13 @@ namespace Device
 
         uint8_t data[6];
         for (uint8_t i = 0; i < 6; i++) {
-            Wire.beginTransmission(IMU_ADDR_ACCL);
-            Wire.write((2 + i));  // Select data register
-            Wire.endTransmission();
-            Wire.requestFrom(IMU_ADDR_ACCL, 1);  // Request 1 byte of data
+            i2c_->beginTransmission(IMU_ADDR_ACCL);
+            i2c_->write((2 + i));  // Select data register
+            i2c_->endTransmission();
+            i2c_->requestFrom(IMU_ADDR_ACCL, 1);  // Request 1 byte of data
             // Read 6 bytes of data
-            if (Wire.available() == 1) {
-                data[i] = Wire.read();
+            if (i2c_->available() == 1) {
+                data[i] = i2c_->read();
             }
         }
         // Convert the data to 12-bits
@@ -142,13 +144,13 @@ namespace Device
 
         uint8_t data[6];
         for (uint8_t i = 0; i < 6; i++) {
-            Wire.beginTransmission(IMU_ADDR_GYRO);
-            Wire.write((2 + i));  // Select data register
-            Wire.endTransmission();
-            Wire.requestFrom(IMU_ADDR_GYRO, 1);  // Request 1 byte of data
+            i2c_->beginTransmission(IMU_ADDR_GYRO);
+            i2c_->write((2 + i));  // Select data register
+            i2c_->endTransmission();
+            i2c_->requestFrom(IMU_ADDR_GYRO, 1);  // Request 1 byte of data
             // Read 6 bytes of data
-            if (Wire.available() == 1) {
-                data[i] = Wire.read();
+            if (i2c_->available() == 1) {
+                data[i] = i2c_->read();
             }
         }
         // Convert the data
@@ -177,13 +179,13 @@ namespace Device
 
         uint8_t data[8];
         for (uint8_t i = 0; i < 8; i++) {
-            Wire.beginTransmission(IMU_ADDR_MAG);
-            Wire.write((0x42 + i));  // Select data register
-            Wire.endTransmission();
-            Wire.requestFrom(IMU_ADDR_MAG, 1);  // Request 1 byte of data
+            i2c_->beginTransmission(IMU_ADDR_MAG);
+            i2c_->write((0x42 + i));  // Select data register
+            i2c_->endTransmission();
+            i2c_->requestFrom(IMU_ADDR_MAG, 1);  // Request 1 byte of data
             // Read 8 bytes of data
-            if (Wire.available() == 1) {
-                data[i] = Wire.read();
+            if (i2c_->available() == 1) {
+                data[i] = i2c_->read();
             }
         }
         // Convert the data

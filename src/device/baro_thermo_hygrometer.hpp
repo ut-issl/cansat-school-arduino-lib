@@ -21,7 +21,7 @@ namespace Device
         BaroThermoHygrometer();
         ~BaroThermoHygrometer() = default;
 
-        void init();
+        void init(TwoWire* i2c = &Wire);
         BaroThermoHygrometer_t read();
 
       private:

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Arduino.h>
+#include <Wire.h>
 
 namespace Device
 {
@@ -12,6 +13,8 @@ namespace Device
 
         SensorBase();
         ~SensorBase() = default;
+
+        TwoWire* i2c_ = NULL;
 
       public:
 
