@@ -28,7 +28,7 @@ namespace Device
         IMU();
         ~IMU() = default;
 
-        void init();
+        void init(TwoWire* i2c = &Wire);
         IMU_t read() override;
         coordinate readAccel() const;
         coordinate readGyro() const;
