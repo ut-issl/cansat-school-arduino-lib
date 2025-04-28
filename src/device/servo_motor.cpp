@@ -39,6 +39,11 @@ namespace Device
         servo_.write(angle);
     }
 
+    void ServoMotor::rotateEndless(int speed)
+    {
+        servo_.write(speed - 90);
+    }
+
     int ServoMotor::read() const
     {
         return servo_.read();
