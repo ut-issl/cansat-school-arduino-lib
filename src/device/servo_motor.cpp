@@ -39,6 +39,19 @@ namespace Device
         servo_.write(angle);
     }
 
+    void ServoMotor::rotateSpeed(int speed)
+    {
+        if (speed < -90) {
+            Utility::logger.warning(F("[ServoMotor] Desired speed"), speed, F("is less than -90. Set to -90"));
+            speed = -90;
+        }
+        if (speed > 90) {
+            Utility::logger.warning(F("[ServoMotor] Desired speed"), speed, F("is greater than 90. Set to 90"));
+            speed = 90;
+        }
+        servo_.write(speed + 90);
+    }
+
     int ServoMotor::read() const
     {
         return servo_.read();
