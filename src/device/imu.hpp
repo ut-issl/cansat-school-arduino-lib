@@ -4,6 +4,14 @@
 
 #include "sensor_base.hpp"
 
+// BMX055 加速度センサのI2Cアドレス
+#define BMX055_ADDR_ACCL 0x19  // (JP1,JP2,JP3 = Openの時)
+// BMX055 ジャイロセンサのI2Cアドレス
+#define BMX055_ADDR_GYRO 0x69  // (JP1,JP2,JP3 = Openの時)
+// BMX055 磁気センサのI2Cアドレス
+#define BMX055_ADDR_MAG 0x13  // (JP1,JP2,JP3 = Openの時)
+
+
 namespace Device
 {
 
