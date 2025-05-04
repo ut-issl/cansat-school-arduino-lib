@@ -36,7 +36,16 @@ namespace Device
 
     IMU_t IMU::read()
     {
-        return IMU_t{readAccel(), readGyro(), readMag()};
+        switch (type_)
+        {
+            case BMX055:
+                return IMU_t{readAccel(), readGyro(), readMag(), euler_t(), quaternion_t()};
+            case BNO055:
+                return IMU_t{readAccel(), readGyro(), readMag(), readEuler(), readQuaternion()};
+            default:
+                Utility::logger.error(F("[IMU] Unknown IMU type"));
+                return IMU_t{readAccel(), readGyro(), readMag(), euler_t(), quaternion_t()};
+        }
     }
 
     coordinate IMU::readAccel() const
@@ -205,6 +214,63 @@ namespace Device
         }
 
         return mag;
+    }
+
+    euler_t IMU::readEuler() const
+    {
+        euler_t euler;
+
+        uint8_t data[6];
+        switch (type_)
+        {
+            case BNO055:
+                i2c_->beginTransmission(BNO055_ADDR);
+                i2c_->write(BNO055_EULER_DATA);
+                i2c_->endTransmission();
+                i2c_->requestFrom(BNO055_ADDR, 6);
+                for (int i = 0; i < 6 && i2c_->available(); i++) {
+                    data[i] = i2c_->read();
+                }
+                /* 1° = 16 LSB */
+                euler.yaw = (int16_t)((data[1] << 8) | data[0]) / 16.0f;
+                euler.pitch = (int16_t)((data[3] << 8) | data[2]) / 16.0f;
+                euler.roll = (int16_t)((data[5] << 8) | data[4]) / 16.0f;
+                break;
+            default:
+                Utility::logger.error(F("[IMU] Unknown IMU type"));
+                break;
+        }
+
+        return euler;
+    }
+
+    quaternion_t IMU::readQuaternion() const
+    {
+        quaternion_t quaternion;
+
+        uint8_t data[8];
+        switch (type_)
+        {
+            case BNO055:
+                i2c_->beginTransmission(BNO055_ADDR);
+                i2c_->write(BNO055_QUATERNION_DATA);
+                i2c_->endTransmission();
+                i2c_->requestFrom(BNO055_ADDR, 8);
+                for (int i = 0; i < 8 && i2c_->available(); i++) {
+                    data[i] = i2c_->read();
+                }
+                /* 1 = 16384 LSB */
+                quaternion.w = (int16_t)((data[1] << 8) | data[0]) / 16384.0f;
+                quaternion.x = (int16_t)((data[3] << 8) | data[2]) / 16384.0f;
+                quaternion.y = (int16_t)((data[5] << 8) | data[4]) / 16384.0f;
+                quaternion.z = (int16_t)((data[7] << 8) | data[6]) / 16384.0f;
+                break;
+            default:
+                Utility::logger.error(F("[IMU] Unknown IMU type"));
+                break;
+        }
+
+        return quaternion;
     }
 
     void IMU::setAccelOffset(const coordinate& offset)

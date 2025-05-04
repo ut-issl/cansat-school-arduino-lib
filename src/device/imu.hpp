@@ -19,9 +19,11 @@
 #define BNO055_SYS_TRIGGER  0x3F
 
 // 各種データレジスタ（16bit, LSB→MSB）
-#define BNO055_ACCEL_DATA   0x08
-#define BNO055_GYRO_DATA    0x14
-#define BNO055_MAG_DATA     0x0E
+#define BNO055_ACCEL_DATA      0x08
+#define BNO055_GYRO_DATA       0x14
+#define BNO055_MAG_DATA        0x0E
+#define BNO055_EULER_DATA      0x1A
+#define BNO055_QUATERNION_DATA 0x20
 
 namespace Device
 {
@@ -39,11 +41,26 @@ namespace Device
         float z;
     };
 
+    struct euler_t {
+      float yaw;   // heading
+      float pitch;
+      float roll;
+    };
+
+    struct quaternion_t {
+      float w;
+      float x;
+      float y;
+      float z;
+    };
+
     struct IMU_t
     {
         coordinate acc;
         coordinate gyro;
         coordinate mag;
+        euler_t euler;
+        quaternion_t quaternion;
     };
 
     class IMU : public SensorBase<IMU_t>
@@ -58,6 +75,8 @@ namespace Device
         coordinate readAccel() const;
         coordinate readGyro() const;
         coordinate readMag() const;
+        euler_t readEuler() const;
+        quaternion_t readQuaternion() const;
 
         void setAccelOffset(const coordinate& offset);
         void setAccelOffset(float x, float y, float z);
