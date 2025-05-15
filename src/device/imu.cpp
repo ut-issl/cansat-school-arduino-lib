@@ -55,7 +55,7 @@ namespace Device
         uint8_t data[6];
         switch (type_)
         {
-            case BMX055:
+            case BMX055: {
                 for (uint8_t i = 0; i < 6; i++) {
                     i2c_->beginTransmission(BMX055_ADDR_ACCL);
                     i2c_->write((2 + i));  // Select data register
@@ -83,7 +83,8 @@ namespace Device
                 accel.y = accel.y * 0.0098 - accel_offset_.y;  // renge +-2g
                 accel.z = accel.z * 0.0098 - accel_offset_.z;  // renge +-2g
                 break;
-            case BNO055:
+            }
+            case BNO055: {
                 i2c_->beginTransmission(BNO055_ADDR);
                 i2c_->write(BNO055_ACCEL_DATA);
                 i2c_->endTransmission();
@@ -96,6 +97,7 @@ namespace Device
                 accel.y = (int16_t)((data[3] << 8) | data[2]) / 100.0f - accel_offset_.y;
                 accel.z = (int16_t)((data[5] << 8) | data[4]) / 100.0f - accel_offset_.z;
                 break;
+            }
             default:
                 Utility::logger.error(F("[IMU] Unknown IMU type"));
                 break;
@@ -111,7 +113,7 @@ namespace Device
         uint8_t data[6];
         switch (type_)
         {
-            case BMX055:
+            case BMX055: {
                 for (uint8_t i = 0; i < 6; i++) {
                     i2c_->beginTransmission(BMX055_ADDR_GYRO);
                     i2c_->write((2 + i));  // Select data register
@@ -139,7 +141,8 @@ namespace Device
                 gyro.y = gyro.y * 0.0038 - gyro_offset_.y;  // renge +-125 degree/s
                 gyro.z = gyro.z * 0.0038 - gyro_offset_.z;  // renge +-125 degree/s
                 break;
-            case BNO055:
+            }
+            case BNO055: {
                 i2c_->beginTransmission(BNO055_ADDR);
                 i2c_->write(BNO055_GYRO_DATA);
                 i2c_->endTransmission();
@@ -152,6 +155,7 @@ namespace Device
                 gyro.y = (int16_t)((data[3] << 8) | data[2]) / 16.0f - gyro_offset_.y;
                 gyro.z = (int16_t)((data[5] << 8) | data[4]) / 16.0f - gyro_offset_.z;
                 break;
+            }
             default:
                 Utility::logger.error(F("[IMU] Unknown IMU type"));
                 break;
@@ -167,7 +171,7 @@ namespace Device
         uint8_t data[8];
         switch (type_)
         {
-            case BMX055:
+            case BMX055: {
                 for (uint8_t i = 0; i < 8; i++) {
                     i2c_->beginTransmission(BMX055_ADDR_MAG);
                     i2c_->write((0x42 + i));  // Select data register
@@ -195,7 +199,8 @@ namespace Device
                 mag.y = mag.y - mag_offset_.y;  // renge +-2000uT
                 mag.z = mag.z - mag_offset_.z;  // renge +-2000uT
                 break;
-            case BNO055:
+            }
+            case BNO055: {
                 i2c_->beginTransmission(BNO055_ADDR);
                 i2c_->write(BNO055_MAG_DATA);
                 i2c_->endTransmission();
@@ -208,6 +213,7 @@ namespace Device
                 mag.y = (int16_t)((data[3] << 8) | data[2]) / 16.0f - mag_offset_.y;
                 mag.z = (int16_t)((data[5] << 8) | data[4]) / 16.0f - mag_offset_.z;
                 break;
+            }
             default:
                 Utility::logger.error(F("[IMU] Unknown IMU type"));
                 return mag;
@@ -226,7 +232,7 @@ namespace Device
             case BMX055:
                 Utility::logger.error(F("[IMU] Euler angles are not supported for BMX055"));
                 break;
-            case BNO055:
+            case BNO055: {
                 i2c_->beginTransmission(BNO055_ADDR);
                 i2c_->write(BNO055_EULER_DATA);
                 i2c_->endTransmission();
@@ -239,6 +245,7 @@ namespace Device
                 euler.pitch = (int16_t)((data[3] << 8) | data[2]) / 16.0f;
                 euler.roll = (int16_t)((data[5] << 8) | data[4]) / 16.0f;
                 break;
+            }
             default:
                 Utility::logger.error(F("[IMU] Unknown IMU type"));
                 break;
@@ -257,7 +264,7 @@ namespace Device
             case BMX055:
                 Utility::logger.error(F("[IMU] Quaternion data is not supported for BMX055"));
                 break;
-            case BNO055:
+            case BNO055: {
                 i2c_->beginTransmission(BNO055_ADDR);
                 i2c_->write(BNO055_QUATERNION_DATA);
                 i2c_->endTransmission();
@@ -271,6 +278,7 @@ namespace Device
                 quaternion.y = (int16_t)((data[5] << 8) | data[4]) / 16384.0f;
                 quaternion.z = (int16_t)((data[7] << 8) | data[6]) / 16384.0f;
                 break;
+            }
             default:
                 Utility::logger.error(F("[IMU] Unknown IMU type"));
                 break;
