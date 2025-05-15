@@ -142,7 +142,7 @@ namespace Utility
     {
         switch (last.type)
         {
-            case IMUType::BMX055: {
+            case Device::IMUType::BMX055: {
                 Serial.print(F("Acc: ("));
                 Serial.print(last.acc.x);
                 Serial.print(F(", "));
@@ -164,7 +164,7 @@ namespace Utility
                 Serial.println(F(")"));
                 break;
             }
-            case IMUType::BNO055: {
+            case Device::IMUType::BNO055: {
                 Serial.print(F("Acc: ("));
                 Serial.print(last.acc.x);
                 Serial.print(F(", "));
