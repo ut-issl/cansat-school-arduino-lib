@@ -1,7 +1,14 @@
 #include <CanSatSchool.h>
 
+// BNO055 を使用する場合は、以下の行のコメントを外してください。
+// #define USE_IMU_BNO055
+
 // IMU の宣言
+#ifdef USE_IMU_BNO055
+IMU imu(IMUType::BNO055);
+#else
 IMU imu;
+#endif
 
 void setup()
 {
@@ -24,9 +31,11 @@ void loop()
     logger.info(imu.read());
 
     // IMU の値を取得して変数に代入したい場合
-    // auto acc = imu.readAccel();  // 加速度
-    // auto gyro = imu.readGyro();  // 角速度
-    // auto mag = imu.readMag();    // 地磁気
+    // auto acc = imu.readAccel();              // 加速度
+    // auto gyro = imu.readGyro();              // 角速度
+    // auto mag = imu.readMag();                // 地磁気
+    // auto euler = imu.readEuler();            // オイラー角 (BNO055 のみ)
+    // auto quaternion = imu.readQuaternion();  // クォータニオン (BNO055 のみ)
 
     // x, y, z それぞれの値を取り出したい場合
     // float acc_x = acc.x;  // 加速度 x 方向
@@ -38,6 +47,13 @@ void loop()
     // float mag_x = mag.x;    // 地磁気 x 方向
     // float mag_y = mag.y;    // 地磁気 y 方向
     // float mag_z = mag.z;    // 地磁気 z 方向
+    // float euler_roll = euler.roll;   // オイラー角 x 方向 (BNO055 のみ)
+    // float euler_pitch = euler.pitch; // オイラー角 y 方向 (BNO055 のみ)
+    // float euler_yaw = euler.yaw;     // オイラー角 z 方向 (BNO055 のみ)
+    // float quaternion_w = quaternion.w;  // クォータニオン w (BNO055 のみ)
+    // float quaternion_x = quaternion.x;  // クォータニオン x (BNO055 のみ)
+    // float quaternion_y = quaternion.y;  // クォータニオン y (BNO055 のみ)
+    // float quaternion_z = quaternion.z;  // クォータニオン z (BNO055 のみ)
 
     // 1s 待つ
     delay(1000);
