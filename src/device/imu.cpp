@@ -223,6 +223,9 @@ namespace Device
         uint8_t data[6];
         switch (type_)
         {
+            case BMX055:
+                Utility::logger.error(F("[IMU] Euler angles are not supported for BMX055"));
+                break;
             case BNO055:
                 i2c_->beginTransmission(BNO055_ADDR);
                 i2c_->write(BNO055_EULER_DATA);
@@ -251,6 +254,9 @@ namespace Device
         uint8_t data[8];
         switch (type_)
         {
+            case BMX055:
+                Utility::logger.error(F("[IMU] Quaternion data is not supported for BMX055"));
+                break;
             case BNO055:
                 i2c_->beginTransmission(BNO055_ADDR);
                 i2c_->write(BNO055_QUATERNION_DATA);
