@@ -140,25 +140,67 @@ namespace Utility
 
     inline void Printer::print_impl(Device::IMU_t last)
     {
-        Serial.print(F("Acc: ("));
-        Serial.print(last.acc.x);
-        Serial.print(F(", "));
-        Serial.print(last.acc.y);
-        Serial.print(F(", "));
-        Serial.print(last.acc.z);
-        Serial.print(F("), Gyro: ("));
-        Serial.print(last.gyro.x);
-        Serial.print(F(", "));
-        Serial.print(last.gyro.y);
-        Serial.print(F(", "));
-        Serial.print(last.gyro.z);
-        Serial.print(F("), Mag: ("));
-        Serial.print(last.mag.x);
-        Serial.print(F(", "));
-        Serial.print(last.mag.y);
-        Serial.print(F(", "));
-        Serial.print(last.mag.z);
-        Serial.println(F(")"));
+        switch (last.type)
+        {
+            case IMUType::BMX055: {
+                Serial.print(F("Acc: ("));
+                Serial.print(last.acc.x);
+                Serial.print(F(", "));
+                Serial.print(last.acc.y);
+                Serial.print(F(", "));
+                Serial.print(last.acc.z);
+                Serial.print(F("), Gyro: ("));
+                Serial.print(last.gyro.x);
+                Serial.print(F(", "));
+                Serial.print(last.gyro.y);
+                Serial.print(F(", "));
+                Serial.print(last.gyro.z);
+                Serial.print(F("), Mag: ("));
+                Serial.print(last.mag.x);
+                Serial.print(F(", "));
+                Serial.print(last.mag.y);
+                Serial.print(F(", "));
+                Serial.print(last.mag.z);
+                Serial.println(F(")"));
+                break;
+            }
+            case IMUType::BNO055: {
+                Serial.print(F("Acc: ("));
+                Serial.print(last.acc.x);
+                Serial.print(F(", "));
+                Serial.print(last.acc.y);
+                Serial.print(F(", "));
+                Serial.print(last.acc.z);
+                Serial.print(F("), Gyro: ("));
+                Serial.print(last.gyro.x);
+                Serial.print(F(", "));
+                Serial.print(last.gyro.y);
+                Serial.print(F(", "));
+                Serial.print(last.gyro.z);
+                Serial.print(F("), Mag: ("));
+                Serial.print(last.mag.x);
+                Serial.print(F(", "));
+                Serial.print(last.mag.y);
+                Serial.print(F(", "));
+                Serial.print(last.mag.z);
+                Serial.print(F("), Euler: ("));
+                Serial.print(last.euler.roll);
+                Serial.print(F(", "));
+                Serial.print(last.euler.pitch);
+                Serial.print(F(", "));
+                Serial.print(last.euler.yaw);
+                Serial.print(F("), Quaternion: ("));
+                Serial.print(last.quaternion.x);
+                Serial.print(F(", "));
+                Serial.print(last.quaternion.y);
+                Serial.print(F(", "));
+                Serial.print(last.quaternion.z);
+                Serial.print(F(", "));
+                Serial.print(last.quaternion.w);
+                Serial.println(F(")"));
+                break;
+            }
+        }
     }
 
     template <class... Args>

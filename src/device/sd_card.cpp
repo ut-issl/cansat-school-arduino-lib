@@ -59,25 +59,67 @@ namespace Device
 
     void SDCard::write_impl(File& file, IMU_t last)
     {
-        file.print(F("Acc: ("));
-        file.print(last.acc.x);
-        file.print(F(", "));
-        file.print(last.acc.y);
-        file.print(F(", "));
-        file.print(last.acc.z);
-        file.print(F("), Gyro: ("));
-        file.print(last.gyro.x);
-        file.print(F(", "));
-        file.print(last.gyro.y);
-        file.print(F(", "));
-        file.print(last.gyro.z);
-        file.print(F("), Mag: ("));
-        file.print(last.mag.x);
-        file.print(F(", "));
-        file.print(last.mag.y);
-        file.print(F(", "));
-        file.print(last.mag.z);
-        file.println(F(")"));
+        switch (last.type)
+        {
+            case IMUType::BMX055: {
+                file.print(F("Acc: ("));
+                file.print(last.acc.x);
+                file.print(F(", "));
+                file.print(last.acc.y);
+                file.print(F(", "));
+                file.print(last.acc.z);
+                file.print(F("), Gyro: ("));
+                file.print(last.gyro.x);
+                file.print(F(", "));
+                file.print(last.gyro.y);
+                file.print(F(", "));
+                file.print(last.gyro.z);
+                file.print(F("), Mag: ("));
+                file.print(last.mag.x);
+                file.print(F(", "));
+                file.print(last.mag.y);
+                file.print(F(", "));
+                file.print(last.mag.z);
+                file.println(F(")"));
+                break;
+            }
+            case IMUType::BNO055: {
+                file.print(F("Acc: ("));
+                file.print(last.acc.x);
+                file.print(F(", "));
+                file.print(last.acc.y);
+                file.print(F(", "));
+                file.print(last.acc.z);
+                file.print(F("), Gyro: ("));
+                file.print(last.gyro.x);
+                file.print(F(", "));
+                file.print(last.gyro.y);
+                file.print(F(", "));
+                file.print(last.gyro.z);
+                file.print(F("), Mag: ("));
+                file.print(last.mag.x);
+                file.print(F(", "));
+                file.print(last.mag.y);
+                file.print(F(", "));
+                file.print(last.mag.z);
+                file.print(F("), Euler: ("));
+                file.print(last.euler.roll);
+                file.print(F(", "));
+                file.print(last.euler.pitch);
+                file.print(F(", "));
+                file.print(last.euler.yaw);
+                file.print(F("), Quaternion: ("));
+                file.print(last.quaternion.x);
+                file.print(F(", "));
+                file.print(last.quaternion.y);
+                file.print(F(", "));
+                file.print(last.quaternion.z);
+                file.print(F(", "));
+                file.print(last.quaternion.w);
+                file.println(F(")"));
+                break;
+            }
+        }
     }
 
 }  // namespace Device

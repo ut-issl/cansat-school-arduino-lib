@@ -63,6 +63,7 @@ namespace Device
         coordinate mag;
         euler euler;
         quaternion quaternion;
+        IMUType type;
     };
 
     class IMU : public SensorBase<IMU_t>
