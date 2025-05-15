@@ -41,13 +41,15 @@ namespace Device
         float z;
     };
 
-    struct euler_t {
+    struct euler
+    {
       float yaw;   // heading
       float pitch;
       float roll;
     };
 
-    struct quaternion_t {
+    struct quaternion
+    {
       float w;
       float x;
       float y;
@@ -59,8 +61,8 @@ namespace Device
         coordinate acc;
         coordinate gyro;
         coordinate mag;
-        euler_t euler;
-        quaternion_t quaternion;
+        euler euler;
+        quaternion quaternion;
     };
 
     class IMU : public SensorBase<IMU_t>
@@ -75,8 +77,8 @@ namespace Device
         coordinate readAccel() const;
         coordinate readGyro() const;
         coordinate readMag() const;
-        euler_t readEuler() const;
-        quaternion_t readQuaternion() const;
+        euler readEuler() const;
+        quaternion readQuaternion() const;
 
         void setAccelOffset(const coordinate& offset);
         void setAccelOffset(float x, float y, float z);

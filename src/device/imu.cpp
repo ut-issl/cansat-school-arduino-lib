@@ -39,12 +39,12 @@ namespace Device
         switch (type_)
         {
             case BMX055:
-                return IMU_t{readAccel(), readGyro(), readMag(), euler_t(), quaternion_t()};
+                return IMU_t{readAccel(), readGyro(), readMag(), euler(), quaternion()};
             case BNO055:
                 return IMU_t{readAccel(), readGyro(), readMag(), readEuler(), readQuaternion()};
             default:
                 Utility::logger.error(F("[IMU] Unknown IMU type"));
-                return IMU_t{readAccel(), readGyro(), readMag(), euler_t(), quaternion_t()};
+                return IMU_t{readAccel(), readGyro(), readMag(), euler(), quaternion()};
         }
     }
 
@@ -216,9 +216,9 @@ namespace Device
         return mag;
     }
 
-    euler_t IMU::readEuler() const
+    euler IMU::readEuler() const
     {
-        euler_t euler;
+        euler euler;
 
         uint8_t data[6];
         switch (type_)
@@ -244,9 +244,9 @@ namespace Device
         return euler;
     }
 
-    quaternion_t IMU::readQuaternion() const
+    quaternion IMU::readQuaternion() const
     {
-        quaternion_t quaternion;
+        quaternion quaternion;
 
         uint8_t data[8];
         switch (type_)
