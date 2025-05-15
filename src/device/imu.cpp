@@ -216,7 +216,7 @@ namespace Device
             }
             default:
                 Utility::logger.error(F("[IMU] Unknown IMU type"));
-                return mag;
+                break;
         }
 
         return mag;
