@@ -4,8 +4,35 @@
 
 #include "sensor_base.hpp"
 
+// BMX055 加速度センサのI2Cアドレス
+#define BMX055_ADDR_ACCL 0x19  // (JP1,JP2,JP3 = Openの時)
+// BMX055 ジャイロセンサのI2Cアドレス
+#define BMX055_ADDR_GYRO 0x69  // (JP1,JP2,JP3 = Openの時)
+// BMX055 磁気センサのI2Cアドレス
+#define BMX055_ADDR_MAG 0x13  // (JP1,JP2,JP3 = Openの時)
+
+// BNO055のI2Cアドレス
+#define BNO055_ADDR         0x28  // (COM3_STATEがLOWの時)
+#define BNO055_OPR_MODE     0x3D
+#define BNO055_UNIT_SEL     0x3B
+#define BNO055_PWR_MODE     0x3E
+#define BNO055_SYS_TRIGGER  0x3F
+
+// 各種データレジスタ（16bit, LSB→MSB）
+#define BNO055_ACCEL_DATA      0x08
+#define BNO055_GYRO_DATA       0x14
+#define BNO055_MAG_DATA        0x0E
+#define BNO055_EULER_DATA      0x1A
+#define BNO055_QUATERNION_DATA 0x20
+
 namespace Device
 {
+
+    enum IMUType
+    {
+        BMX055 = 0,
+        BNO055,
+    };
 
     struct coordinate
     {
@@ -14,18 +41,36 @@ namespace Device
         float z;
     };
 
+    struct euler
+    {
+      float yaw;   // heading
+      float pitch;
+      float roll;
+    };
+
+    struct quaternion
+    {
+      float w;
+      float x;
+      float y;
+      float z;
+    };
+
     struct IMU_t
     {
         coordinate acc;
         coordinate gyro;
         coordinate mag;
+        euler euler;
+        quaternion quaternion;
+        IMUType type;
     };
 
     class IMU : public SensorBase<IMU_t>
     {
       public:
 
-        IMU();
+        IMU(IMUType type = BMX055);
         ~IMU() = default;
 
         void init(TwoWire* i2c = &Wire);
@@ -33,6 +78,8 @@ namespace Device
         coordinate readAccel() const;
         coordinate readGyro() const;
         coordinate readMag() const;
+        euler readEuler() const;
+        quaternion readQuaternion() const;
 
         void setAccelOffset(const coordinate& offset);
         void setAccelOffset(float x, float y, float z);
@@ -43,9 +90,13 @@ namespace Device
 
       private:
 
+        IMUType type_;
         coordinate accel_offset_;
         coordinate gyro_offset_;
         coordinate mag_offset_;
+
+        void initBMX055_();
+        void initBNO055_();
     };
 
 }  // namespace Device
