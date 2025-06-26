@@ -12,7 +12,7 @@
         "email": "cansat@space.t.u-tokyo.ac.jp",
         "maintainer": true
     },
-    "version": "2024.1.2",
+    "version": "2025.1.0",
     "license": "MIT",
     "homepage": "https://cansat-school.ut-issl.com/",
     "frameworks": "arduino",
