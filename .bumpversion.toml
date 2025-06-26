@@ -20,6 +20,6 @@ replace = "version={new_version}"
 
 [[tool.bumpversion.files]]
 filename = "LICENSE"
-serialize = ["{major}"]
+serialize = ["{year}"]
 search = "Copyright (c) {current_version}"
 replace = "Copyright (c) {new_version}"
