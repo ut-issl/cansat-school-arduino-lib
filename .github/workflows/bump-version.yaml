@@ -1,0 +1,22 @@
+name: Bump Version
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+
+  bump-version:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: conjikidow/bump-version@0fdb49b3dcbe4c5dd722e41ce2e3142e03c069bf # v1.2.3
+        with:
+          label-major: ''
+          label-minor: 'update::minor'
+          label-patch: 'update::patch'
+          labels-to-add: 'automated,versioning'
