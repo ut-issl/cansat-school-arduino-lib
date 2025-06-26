@@ -1,0 +1,43 @@
+- name: "priority::high"
+  description: "High priority"
+  color: "FF33CC"
+
+- name: "priority::medium"
+  description: "Medium priority"
+  color: "FFFF33"
+
+- name: "priority::low"
+  description: "Low priority"
+  color: "66FF66"
+
+- name: "update::minor"
+  description: "Minor update"
+  color: "0099CC"
+
+- name: "update::patch"
+  description: "Patch update"
+  color: "003366"
+
+- name: "tools"
+  description: "Changes to tools like CI/CD"
+  color: "D1E8D1"
+
+- name: "documentation"
+  description: "Improvements or additions to documentation"
+  color: "CCE5F5"
+
+- name: "bug"
+  description: "Something isn't working"
+  color: "FF3333"
+
+- name: "automated"
+  description: "Automated issue or pull request"
+  color: "D6D6D6"
+
+- name: "dependencies"
+  description: "Update dependencies"
+  color: "D6D6D6"
+
+- name: "versioning"
+  description: "Versioning changes"
+  color: "D6D6D6"
