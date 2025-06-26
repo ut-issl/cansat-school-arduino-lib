@@ -1,0 +1,25 @@
+[tool.bumpversion]
+current_version = "2025.1.0"
+commit = false
+tag = false
+parse = "(?P<year>\\d{4})\\.(?P<minor>\\d+)\\.(?P<patch>\\d+)"
+serialize = ["{year}.{minor}.{patch}"]
+
+[tool.bumpversion.parts.year]
+calver_format = "{YYYY}"
+
+[[tool.bumpversion.files]]
+filename = "library.json"
+search = '"version": "{current_version}"'
+replace = '"version": "{new_version}"'
+
+[[tool.bumpversion.files]]
+filename = "library.properties"
+search = "version={current_version}"
+replace = "version={new_version}"
+
+[[tool.bumpversion.files]]
+filename = "LICENSE"
+serialize = ["{major}"]
+search = "Copyright (c) {current_version}"
+replace = "Copyright (c) {new_version}"
